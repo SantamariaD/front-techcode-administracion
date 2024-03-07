@@ -1,0 +1,64 @@
+<span
+  class="icono-archivo"
+  *ngIf="tipoArchivo == 'pdf'"
+  nz-icon
+  nzType="file-pdf"
+  nzTheme="outline"
+  [style]="tamano"
+></span>
+
+<span
+  class="icono-archivo"
+  *ngIf="tipoArchivo == 'docx'"
+  nz-icon
+  nzType="file-word"
+  nzTheme="outline"
+  [style]="tamano"
+></span>
+
+<span
+  class="icono-archivo"
+  *ngIf="tipoArchivo == 'xlsx'"
+  nz-icon
+  nzType="file-excel"
+  nzTheme="outline"
+  [style]="tamano"
+></span>
+
+<span
+  class="icono-archivo"
+  *ngIf="tipoArchivo == 'zip'"
+  nz-icon
+  nzType="file-zip"
+  nzTheme="outline"
+  [style]="tamano"
+></span>
+
+<span
+  class="icono-archivo"
+  *ngIf="
+    tipoArchivo == 'imagen' || tipoArchivo == 'jpg' || tipoArchivo == 'png'
+  "
+  nz-icon
+  nzType="file-image"
+  nzTheme="outline"
+  [style]="tamano"
+></span>
+
+<span
+  class="icono-archivo"
+  *ngIf="tipoArchivo == 'power'"
+  nz-icon
+  nzType="file-ppt"
+  nzTheme="outline"
+  [style]="tamano"
+></span>
+
+<span
+  class="icono-archivo"
+  *ngIf="tipoArchivo == 'file' || tipoArchivo == 'sql'"
+  nz-icon
+  nzType="file"
+  nzTheme="outline"
+  [style]="tamano"
+></span>

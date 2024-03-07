@@ -1,0 +1,111 @@
+@import "../../../../../styles.scss";
+
+.sidebar {
+  position: fixed;
+  z-index: 10;
+  &__contenedor {
+    width: 90px;
+    &--logo {
+      position: relative;
+      height: 64px;
+      padding-left: 24px;
+      overflow: hidden;
+      line-height: 64px;
+      background: #001529;
+      transition: all 0.3s;
+      color: rgb(226, 226, 226);
+      font-size: 22px;
+      span {
+        margin-left: 6px;
+      }
+      img {
+        display: inline-block;
+        height: 32px;
+        width: 32px;
+        vertical-align: middle;
+      }
+      h1 {
+        display: inline-block;
+        margin: 0 0 0 20px;
+        color: #fff;
+        font-weight: 600;
+        font-size: 14px;
+        font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
+        vertical-align: middle;
+      }
+    }
+    &--iconos {
+      height: 91vh;
+      overflow-y: auto;
+    }
+  }
+}
+
+.header-trigger {
+  height: 64px;
+  padding: 20px 24px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s, padding 0s;
+}
+
+.trigger:hover {
+  color: white;
+}
+
+.sider-hover {
+  width: 230px;
+  transition: 0.2s;
+}
+
+.sider-hover-off {
+  width: 80px;
+  transition: 0.2s;
+}
+
+.logo {
+  height: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px;
+  transition: 0.2s;
+}
+
+.layout {
+  min-height: 100vh;
+}
+
+li {
+  font-size: 16px;
+}
+
+.sider-logo {
+  width: 100%;
+  font-size: 20px;
+  margin: 0px auto;
+}
+
+.contenedor-logo {
+  width: 30px;
+  margin-left: -5px;
+}
+
+.avatar {
+  width: 40px;
+  margin: 5px auto;
+}
+
+.datos {
+  width: 100%;
+  margin: 0px auto;
+  border-bottom: 1px solid rgb(91, 91, 91);
+  padding-bottom: 10px;
+  &__nombre {
+    width: 100%;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.65);
+    font-weight: 600;
+    margin: 0px;
+    line-height: 20px;
+    text-align: center;
+  }
+}

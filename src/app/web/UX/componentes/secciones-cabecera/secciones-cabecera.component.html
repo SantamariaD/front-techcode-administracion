@@ -1,0 +1,13 @@
+<div class="contenedor-secciones">
+    <div
+      class="contenedor-secciones__select m-l-20 cursor-pointer"
+      *ngFor="let seccion of secciones"
+      [ngClass]="{ borde: seccion?.seleccionado }"
+      (click)="seleccion(seccion.texto)"
+    >
+      <p [ngClass]="{ seleccionado: seccion?.seleccionado }">
+        {{ seccion?.texto }}
+      </p>
+    </div>
+  </div>
+  

@@ -1,0 +1,69 @@
+@import "./app/web/UX/estilos/variables.scss";
+@import "./app/web/UX/estilos/clases.scss";
+@import "./app/web/UX/estilos/mixins.scss";
+
+html {
+  line-height: 1;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+div {
+  margin: 0;
+}
+
+.menu-sidebar {
+  scrollbar-color: #00315f transparent !important;
+  scrollbar-width: thin;
+}
+
+.menu-sidebar::-webkit-scrollbar-track {
+  background: #7cc0ff;
+}
+
+.menu-sidebar::-webkit-scrollbar-thumb {
+  background: #003e78;
+}
+
+.menu-sidebar::-webkit-scrollbar-thumb:hover {
+  background: #0a0909;
+}
+
+.ant-result-icon {
+  margin-bottom: 0px !important;
+}
+
+.sidebar__contenedor--iconos[_ngcontent-ng-c4109048433] {
+  background: black !important;
+}
+
+.sidebar__contenedor--logo[_ngcontent-ng-c4109048433] {
+  background: black;
+}
+
+.ant-layout-sider-children .ant-menu.ant-menu-inline-collapsed {
+  background: black !important;
+}
+
+.ant-menu.ant-menu-dark,
+.ant-menu-dark .ant-menu-sub,
+.ant-menu.ant-menu-dark .ant-menu-sub {
+  background: black !important;
+}
+
+.ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: rgb(37, 37, 37) !important;
+}

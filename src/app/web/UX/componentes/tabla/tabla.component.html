@@ -1,0 +1,131 @@
+<nz-table [nzData]="paginadorFilasTabla" [nzFrontPagination]="false">
+  <thead>
+    <tr>
+      <th [nzColumnKey]="columna.llave" *ngFor="let columna of columnasTabla">
+        <div class="columna">
+          <p class="columna__texto">
+            {{ columna.columna }}
+          </p>
+          <div
+            *ngIf="columna.busqueda"
+            nz-popover
+            nzPopoverTitle="Buscar en tabla"
+            nzPopoverTrigger="click"
+            [nzPopoverContent]="contentTemplate"
+          >
+            <span
+              class="columna__icono cursor-pointer"
+              nz-icon
+              nzType="search"
+              nzTheme="outline"
+            ></span>
+            <ng-template #contentTemplate>
+              <form nz-form [formGroup]="tablaForm" [nzLayout]="'inline'">
+                <nz-form-item>
+                  <nz-form-control>
+                    <nz-input-group>
+                      <input
+                        class="input-pop"
+                        formControlName="busqueda"
+                        nz-input
+                        placeholder="Ingresa tu busqueda"
+                      />
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+              </form>
+              <div class="columna__botones">
+                <button
+                  class="columna__botones--buscar cursor-pointer"
+                  (click)="buscar(columna.llave)"
+                >
+                  Buscar
+                </button>
+                <button
+                  class="columna__botones--reset cursor-pointer"
+                  (click)="reset()"
+                >
+                  Reset
+                </button>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      class="cursor-pointer"
+      *ngFor="let fila of paginadorFilasTabla"
+      (click)="clickFilaEmit(fila)"
+    >
+      <td
+        class="text-align-center"
+        *ngFor="let columna of columnasTabla"
+        [class]="columna.class"
+      >
+        <div *ngIf="columna.llave === 'extension'">
+          <app-icono-archivo
+            class="m-r-5"
+            [tipoArchivo]="fila[columna.llave] || ''"
+            tamanoIcono="30"
+          ></app-icono-archivo
+          >{{ fila.extension }}
+        </div>
+        <div
+          *ngIf="
+            columna.llave !== 'extension' &&
+            columna.llave !== 'updated_at' &&
+            columna.llave !== 'created_at'
+          "
+          [ngClass]="{
+            azul: ['Revisión', 'Solicitada'].includes(fila[columna.llave]),
+            morado: fila[columna.llave] == 'Con Proveedor',
+            rojo: ['Rechazada', 'Cancelada'].includes(fila[columna.llave]),
+            naranja: [
+              'Parcialmente Completada',
+              'En Proceso',
+              'Evaluando'
+            ].includes(fila[columna.llave]),
+            verde: ['Completada', 'Compras', 'Aprobada'].includes(
+              fila[columna.llave]
+            )
+          }"
+        >
+          {{ fila[columna.llave] }}
+        </div>
+
+        <div
+          *ngIf="
+            (columna.llave !== 'extension' && columna.llave === 'updated_at') ||
+            columna.llave === 'created_at'
+          "
+        >
+          {{ fila[columna.llave] | date }}
+        </div>
+        <span
+          *ngIf="columna.columna == 'Ver'"
+          nz-icon
+          nzType="search"
+          nzTheme="outline"
+        ></span>
+      </td>
+      <td>
+        <button (click)="abrirDesgloce(fila)" *ngIf="nomina">Evaluar</button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+<div class="contenido" nz-row>
+  <div></div>
+</div>
+<div class="tabla">
+  <nz-pagination
+    [nzPageIndex]="currentPage"
+    [nzTotal]="filasTabla.length"
+    [nzPageSize]="pageSize"
+    [nzResponsive]="true"
+    (nzPageIndexChange)="currentPage = $event"
+  ></nz-pagination>
+</div>

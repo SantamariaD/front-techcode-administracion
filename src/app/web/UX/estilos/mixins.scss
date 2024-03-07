@@ -1,0 +1,91 @@
+@use "sass:math";
+
+/******* SASS Mixins *******/
+
+@mixin displayGrid($rows){
+  display: grid;
+  grid-template-columns: repeat($rows, 1fr);
+}
+
+@mixin textStyles(
+  $font: "",
+  $fontSize: "",
+  $weight: "",
+  $color: "",
+  $textTransform: ""
+) {
+  font-family: $font;
+  font-weight: $weight;
+  color: $color;
+  text-transform: $textTransform;
+  @include fontSize($fontSize);
+}
+
+@mixin fontSize($size) {
+  font-size: $size;
+  font-size: calculateRem($size);
+  line-height: calculateRem($size + 8);
+}
+
+@mixin flexProperties(
+  $direction,
+  $jContent,
+  $aItems,
+  $width: "",
+  $padding: 0px
+) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $jContent;
+  align-items: $aItems;
+  width: $width;
+  padding: $padding;
+}
+
+@mixin shadows($type) {
+  @if $type == "hover" {
+    box-shadow: 0 1px 2px -2px rgba(0, 0, 0, 0.16),
+      0 3px 6px 0 rgba(0, 0, 0, 0.12), 0 5px 12px 4px rgba(0, 0, 0, 0.09);
+  } @else if $type == "base" {
+    box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12),
+      0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+  } @else if $type == "modal" {
+    box-shadow: 0 6px 16px -8px rgba(0, 0, 0, 0.08),
+      0 9px 28px 0 rgba(0, 0, 0, 0.05), 0 12px 48px 16px rgba(0, 0, 0, 0.03);
+  }
+}
+
+@mixin container(
+  $bgColor: "",
+  $bSize: "",
+  $bStyle: "",
+  $bColor: "",
+  $bRadius: ""
+) {
+  background-color: $bgColor;
+  border: $bSize $bStyle $bColor;
+  border-radius: $bRadius;
+}
+
+/******* SASS Functions *******/
+@function calculateRem($size) {
+  $remSize: math.div($size, 16px);
+  @return $remSize * 1rem;
+}
+
+@function getOpacity($color, $amount) {
+  @return rgba($color, $amount);
+}
+
+/******* SASS Loops *******/
+
+@each $header, $size in (h2: 24px, h3: 20px, h4: 16px) {
+  #{$header} {
+    color: $color-dark-3;
+    font-size: $size;
+    @include fontSize($size);
+    @if $header != "h4" {
+      font-family: $font-emphasis;
+    }
+  }
+}

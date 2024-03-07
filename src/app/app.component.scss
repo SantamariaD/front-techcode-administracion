@@ -1,0 +1,59 @@
+@import "../styles.scss";
+
+:host {
+  display: flex;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.app-layout {
+  min-height: 100vh;
+  position: relative;
+}
+
+nz-header {
+  padding: 0;
+  width: 100%;
+  z-index: 2;
+  position: fixed;
+}
+
+.app-header {
+  width: 100%;
+  height: 64px;
+  background: #fff;
+}
+
+.nz-content-sider {
+  margin: 24px;
+  background: #f0f2f5;
+}
+
+.inner-content {
+  background: #f2f2f2d9;
+  height: 100%;
+  margin-top: 60px;
+}
+
+.spinner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  opacity: 0.5;
+  color: blue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.margin-logout {
+  margin-top: 0;
+}
+
+@media (max-width: 430px) {
+  .menu-sidebar {
+    display: none;
+  }
+}

@@ -1,0 +1,23 @@
+<div class="contenedor-principal" style="width: 100%">
+  <nz-header class="color-backgorund-brand-primary">
+    <div class="app-header p-l-10 p-r-10">
+      <app-navbar
+        (cerrarSesionEvent)="this.isCollapsed = true"
+      ></app-navbar>
+    </div>
+  </nz-header>
+  <nz-layout class="app-layout">
+    <nz-sider class="menu-sidebar" nzWidth="230px" [nzCollapsed]="isCollapsed">
+      <app-sidebar (abrirSiderEmit)="abrirSider()"></app-sidebar>
+    </nz-sider>
+    <nz-layout>
+      <nz-content>
+        <div>
+          <router-outlet></router-outlet>
+          <!-- <app-spiner *ngIf="spinerPeticion"></app-spiner> -->
+        </div>
+      </nz-content>
+      <app-footer></app-footer>
+    </nz-layout>
+  </nz-layout>
+</div>

@@ -1,0 +1,63 @@
+<section class="suscripciones contenedor-principal-pagina">
+  <div class="suscripciones__cabecera">
+    <div class="suscripciones__cabecera--descripcion">
+      <div class="suscripciones__cabecera--descripcion__texto">
+        <p class="suscripciones__cabecera--descripcion__texto--titulo">
+          <span
+            class="icono-text"
+            nz-icon
+            nzType="swap"
+            nzTheme="outline"
+          ></span>
+          Suscripciones
+        </p>
+        <p class="suscripciones__cabecera--descripcion__texto--parrafo">
+          En está sección podrás gestionar las suscripciones del sistema
+          administrativo
+        </p>
+      </div>
+      <!-- <div class="suscripciones__botones">
+        <div class="suscripciones__botones--boton">
+          <button>
+            <span nz-icon nzType="plus" nzTheme="outline"></span>
+            Agregar un Traspaso
+          </button>
+        </div>
+      </div> -->
+    </div>
+    <div class="suscripciones__cabecera--contenedor">
+      <p class="suscripciones__cabecera--contenedor__info">
+        Datos informativos
+      </p>
+      <div class="suscripciones__cabecera--contenedor--info-stock">
+        <p class="suscripciones__cabecera--contenedor--info-stock--llave">
+          <span nz-icon nzType="thunderbolt"></span>
+          Total de Suscripciones Activas:
+        </p>
+        <p class="suscripciones__cabecera--contenedor--info-stock--valor">10</p>
+      </div>
+      <div class="suscripciones__cabecera--contenedor--info-stock">
+        <p class="suscripciones__cabecera--contenedor--info-stock--llave">
+          <span nz-icon nzType="thunderbolt"></span>
+          Total de Suscripciones Inactivas:
+        </p>
+        <p class="suscripciones__cabecera--contenedor--info-stock--valor">5</p>
+      </div>
+    </div>
+  </div>
+  <div class="suscripciones__secciones">
+    <app-tabla
+      [columnasTabla]="columnasTabla"
+      [filasTabla]="suscriptores"
+      [filasBusqueda]="suscriptores"
+      (clickFila)="clickFilaSuscripcion($event)"
+    ></app-tabla>
+  </div>
+</section>
+
+@if (mostrarCardSuscripcion) {
+<app-card-suscripciones
+  [suscripcion]="suscripcion"
+  (clickCerrar)="mostrarCardSuscripcion = false"
+></app-card-suscripciones>
+}

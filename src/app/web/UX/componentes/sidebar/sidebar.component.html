@@ -1,0 +1,62 @@
+<nz-sider class="sidebar" nzWidth="230px" [nzCollapsed]="isCollapsed">
+  <div
+    class="sidebar__contenedor"
+    [ngClass]="{ 'sider-hover': !isCollapsed, 'sider-hover-off': isCollapsed }"
+  >
+    <div
+      class="sidebar__contenedor--logo cursor-pointer"
+      (click)="abrirSider()"
+    >
+      <div [ngClass]="{ 'contenedor-logo': !isCollapsed }">
+        <span
+          *ngIf="isCollapsed"
+          nz-icon
+          nzType="menu-unfold"
+          nzTheme="outline"
+        ></span>
+        <span
+          *ngIf="!isCollapsed"
+          nz-icon
+          nzType="menu-fold"
+          nzTheme="outline"
+        ></span>
+      </div>
+    </div>
+    <ul
+      nz-menu
+      nzTheme="dark"
+      nzMode="inline"
+      [nzInlineCollapsed]="isCollapsed"
+      class="sidebar__contenedor--iconos menu-sidebar"
+    >
+      <ul>
+        <li>
+          <div class="avatar">
+            <nz-avatar [nzSize]="40" nzIcon="user"></nz-avatar>
+          </div>
+          <div *ngIf="!isCollapsed" class="datos">
+            <h3 class="datos__nombre">Diego Alejandro Meza Santamaria</h3>
+            <h3 class="datos__nombre">1032233</h3>
+          </div>
+        </li>
+      </ul>
+      <ul
+        nz-menu
+        nzMode="inline"
+        nzTheme="dark"
+        [nzInlineCollapsed]="isCollapsed"
+        routerLink="/suscripciones"
+      >
+        <li
+          nz-menu-item
+          nz-tooltip
+          [nzTooltipTitle]="isCollapsed ? 'Suscripciones' : ''"
+          nzTooltipPlacement="right"
+        >
+          <span nz-icon nzType="audit"></span>
+          <span>Suscripciones</span>
+        </li>
+      </ul>
+    </ul>
+  </div>
+</nz-sider>

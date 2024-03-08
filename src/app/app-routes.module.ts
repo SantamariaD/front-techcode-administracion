@@ -10,4 +10,11 @@ export const routes: Routes = [
         (m) => m.SuscripcionesComponent
       ),
   },
+  {
+    path: 'empleados',
+    loadComponent: () =>
+      import('./web/UX/paginas/empleados/empleados.component').then(
+        (m) => m.EmpleadosComponent
+      ),
+  },
 ];

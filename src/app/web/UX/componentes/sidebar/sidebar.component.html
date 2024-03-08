@@ -57,6 +57,23 @@
           <span>Suscripciones</span>
         </li>
       </ul>
+      <ul
+        nz-menu
+        nzMode="inline"
+        nzTheme="dark"
+        [nzInlineCollapsed]="isCollapsed"
+        routerLink="/empleados"
+      >
+        <li
+          nz-menu-item
+          nz-tooltip
+          [nzTooltipTitle]="isCollapsed ? 'Suscripciones' : ''"
+          nzTooltipPlacement="right"
+        >
+          <span nz-icon nzType="team"></span>
+          <span>Empleados</span>
+        </li>
+      </ul>
     </ul>
   </div>
 </nz-sider>

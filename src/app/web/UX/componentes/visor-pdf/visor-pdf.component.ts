@@ -178,7 +178,7 @@ export class VisorPdfComponent implements OnInit {
     this.documentosService
       .descargarArchivoDocumento(
         this.path
-          .replace(environment.urls.apiSistemaAdministrativo, '')
+          .replace(environment.urls.msTechcodeAdministracionEmpleados, '')
           .replace('-documento', '')
       )
       .subscribe({

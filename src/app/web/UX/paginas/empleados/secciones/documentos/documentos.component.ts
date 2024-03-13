@@ -182,7 +182,7 @@ export class DocumentosComponent implements OnInit {
   abrirVisor(plantilla: ConsultaPlantillaDocumentoEmpleado) {
     this.mostrarVisor = true;
     this.urlDescarga =
-      environment.urls.apiSistemaAdministrativo +
+      environment.urls.msTechcodeAdministracionEmpleados +
       ENDPOINTS.empleados.descargarDocumento +
       '/' +
       plantilla.uuid +

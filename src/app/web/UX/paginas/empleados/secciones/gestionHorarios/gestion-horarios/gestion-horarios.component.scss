@@ -37,12 +37,12 @@
     span {
       text-align: center;
       font-size: 30px;
-      color: #001529;
+      color: #000000;
     }
     p {
       text-align: center;
       margin-left: 15px;
-      color: #001529;
+      color: #000000;
       font-size: 30px;
     }
   }
@@ -171,7 +171,7 @@
         }
       }
       .renglon:hover {
-        background: #4679e7;
+        background: #828282;
         cursor: none;
       }
     }
@@ -365,13 +365,13 @@ nz-calendar {
 }
 
 .revisado {
-  background: #81D4FA;
+  background: #828282;
   color: white;
   height: 100px;
   padding-top: 30px;
   border: none;
   &:hover {
-    background: #81D4FA;
+    background: #828282;
     opacity: 0.9;
     color: white;
     cursor: pointer;

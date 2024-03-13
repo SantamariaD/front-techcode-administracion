@@ -1,3 +1,5 @@
+import { environment } from '../../../../environments/environment';
+
 export const ENDPOINTS = {
   documentos: {
     traerDocumentosArea: '/documentos/traer-documentos-area/administracion',
@@ -16,7 +18,7 @@ export const ENDPOINTS = {
     importarProductos: '/producto/importar-productos',
     guardarProductos: '/producto/guardar-producto',
     actualizarProductos: '/producto/actualizar-producto',
-    descargarFormato:'/producto/descargar-formato',
+    descargarFormato: '/producto/descargar-formato',
     eliminarProductos: '/producto/eliminar-producto',
   },
   productosTicket: {
@@ -34,47 +36,117 @@ export const ENDPOINTS = {
     eliminarCategorias: '/categorias-productos-almacenes/eliminar-categoria',
   },
   empleados: {
-    crearEmpleado: '/empleados/guardar-empleado',
-    crearEmpleadoLaboral: '/empleados/guardar-empleado-laboral',
-    traerEmpleados: '/empleados/consultar-empleados',
-    traerEmpleado: '/empleados/consultar-empleado',
-    traerFotografia: '/empleados/traer-fotografia',
-    guardarEmpleado: '/empleados/guardar-empleado',
-    actualizarEmpleado: '/empleados/actualizar-empleado',
-    actualizarEmpleadoLaboral: '/empleados/actualizar-empleado-laboral',
-    eliminarEmpleado: '/empleados/eliminar-empleado',
-    traerDocumentosArea: '/empleados/traer-documentos-area/administracion',
-    traerTodosDocumentos: '/empleados/consultar-plantillas-documentos-empleado',
-    eliminarDocumento: '/empleados/desasignar-plantilla-documento-empleado',
-    guardarDocumentos: '/empleados/asignar-plantilla-documento',
-    actualizarDocumento: '/empleados/actualizar-plantilla-documento-empleado',
-    descargarDocumento: '/empleados/descargar-documento',
-    guardarAsistencia: '/empleados/guardar-asistencia',
-    actualizarAsistencia: '/empleados/actualizar-asistencia',
-    traerRegistro: '/empleados/traer-registro',
+    crearEmpleado:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/empleados/guardar-empleado',
+    crearEmpleadoLaboral:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/empleados/guardar-empleado-laboral',
+    traerEmpleados:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/empleados/consultar-empleados',
+    traerEmpleado:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/empleados/consultar-empleado',
+    traerFotografia:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/empleados/traer-fotografia',
+    guardarEmpleado:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/empleados/guardar-empleado',
+    actualizarEmpleado:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/empleados/actualizar-empleado',
+    actualizarEmpleadoLaboral:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/empleados/actualizar-empleado-laboral',
+    eliminarEmpleado:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/empleados/eliminar-empleado',
+    traerDocumentosArea:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/empleados/traer-documentos-area/administracion',
+    traerTodosDocumentos:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/empleados/consultar-plantillas-documentos-empleado',
+    eliminarDocumento:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/empleados/desasignar-plantilla-documento-empleado',
+    guardarDocumentos:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/empleados/asignar-plantilla-documento',
+    actualizarDocumento:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/empleados/actualizar-plantilla-documento-empleado',
+    descargarDocumento:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/empleados/descargar-documento',
+    guardarAsistencia:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/empleados/guardar-asistencia',
+    actualizarAsistencia:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/empleados/actualizar-asistencia',
+    traerRegistro:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/empleados/traer-registro',
   },
   plantillas: {
-    crearPlantilla: '/plantillas/crear-plantilla',
-    consultarPlantillas: '/plantillas/consultar-plantillas',
-    eliminarPlantillas: '/plantillas/eliminar-plantilla',
-    atualizarPlantillas: '/plantillas/actualizar-plantilla',
+    crearPlantilla:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/plantillas/crear-plantilla',
+    consultarPlantillas:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/plantillas/consultar-plantillas',
+    eliminarPlantillas:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/plantillas/eliminar-plantilla',
+    atualizarPlantillas:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/plantillas/actualizar-plantilla',
   },
   horarios: {
-    crearHorario: '/horario/crear-horario',
-    crearVariosHorario: '/horario/crear-varios',
-    actualizarHorario: '/horario/actualizar-horario',
-    actualizarVariosHorarios: '/horario/actualizar-varios',
-    ConsultarHorarioByEmpleado: '/horario/consultar-horario',
-    ConsultarHorarioByfecha: '/horario/consultar-horario-fecha',
-    ConsultarHorarios: '/horario/consultar-horarios',
-    eliminarHorario: '/horario/eliminar-horario',
+    crearHorario:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/horario/crear-horario',
+    crearVariosHorario:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/horario/crear-varios',
+    actualizarHorario:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/horario/actualizar-horario',
+    actualizarVariosHorarios:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/horario/actualizar-varios',
+    ConsultarHorarioByEmpleado:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/horario/consultar-horario',
+    ConsultarHorarioByfecha:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/horario/consultar-horario-fecha',
+    ConsultarHorarios:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/horario/consultar-horarios',
+    eliminarHorario:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/horario/eliminar-horario',
   },
   horariosGenerales: {
-    crearHorario: '/horarios-generales/crear-horario',
-    actualizarHorario: '/horarios-generales/actualizar-horario',
-    ConsultarHorarioById: '/horarios-generales/consultar-horario',
-    ConsultarHorarios: '/horarios-generales/consultar-horarios',
-    eliminarHorario: '/horarios-generales/eliminar-horario',
+    crearHorario:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/horarios-generales/crear-horario',
+    actualizarHorario:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/horarios-generales/actualizar-horario',
+    ConsultarHorarioById:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/horarios-generales/consultar-horario',
+    ConsultarHorarios:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/horarios-generales/consultar-horarios',
+    eliminarHorario:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/horarios-generales/eliminar-horario',
   },
   reportes: {
     crearReporte: '/reportes/crear-reporte',
@@ -120,17 +192,35 @@ export const ENDPOINTS = {
     eliminarCatalogo: '/catalogo-proveedores/eliminar-catalogo',
   },
   areas: {
-    crearArea: '/areas/crear-area',
-    actualizarArea: '/areas/actualizar-area',
-    consultarAreas: '/areas/consultar-areas',
-    eliminarArea: '/areas/eliminar-area',
+    crearArea:
+      environment.urls.msTechcodeAdministracionGestionOrganizacional +
+      '/areas/crear-area',
+    actualizarArea:
+      environment.urls.msTechcodeAdministracionGestionOrganizacional +
+      '/areas/actualizar-area',
+    consultarAreas:
+      environment.urls.msTechcodeAdministracionGestionOrganizacional +
+      '/areas/consultar-areas',
+    eliminarArea:
+      environment.urls.msTechcodeAdministracionGestionOrganizacional +
+      '/areas/eliminar-area',
   },
   puestos: {
-    crearPuesto: '/puestos/crear-puesto',
-    actualizarPuesto: '/puestos/actualizar-puesto',
-    consultarPuestos: '/puestos/consultar-puestos',
-    consultarPuestoByArea: '/puestos/consultar-puestoByArea',
-    eliminarPuesto: '/puestos/eliminar-puesto',
+    crearPuesto:
+      environment.urls.msTechcodeAdministracionGestionOrganizacional +
+      '/puestos/crear-puesto',
+    actualizarPuesto:
+      environment.urls.msTechcodeAdministracionGestionOrganizacional +
+      '/puestos/actualizar-puesto',
+    consultarPuestos:
+      environment.urls.msTechcodeAdministracionGestionOrganizacional +
+      '/puestos/consultar-puestos',
+    consultarPuestoByArea:
+      environment.urls.msTechcodeAdministracionGestionOrganizacional +
+      '/puestos/consultar-puestoByArea',
+    eliminarPuesto:
+      environment.urls.msTechcodeAdministracionGestionOrganizacional +
+      '/puestos/eliminar-puesto',
   },
   ordenCompra: {
     guardarOrdenCompra: '/ordenes-compra/guardar-orden-compra',
@@ -150,12 +240,24 @@ export const ENDPOINTS = {
     editarVariosEventos: '/calendario/editar-varios-eventos',
   },
   sucursales: {
-    consultarSucursales: '/sucursales/consultar-sucursales',
-    eliminarScursal: '/sucursales/eliminar-sucursal',
-    crearScursal: '/sucursales/crear-sucursal',
-    actualizarScursal: '/sucursales/actualizar-sucursal',
-    agregarAlmacen: '/sucursales/agregar-almacen-sucursal',
-    actualizarAlmacen: '/sucursales/actualizar-almacen-sucursal',
+    consultarSucursales:
+      environment.urls.msTechcodeAdministracionGestionOrganizacional +
+      '/sucursales/consultar-sucursales',
+    eliminarScursal:
+      environment.urls.msTechcodeAdministracionGestionOrganizacional +
+      '/sucursales/eliminar-sucursal',
+    crearScursal:
+      environment.urls.msTechcodeAdministracionGestionOrganizacional +
+      '/sucursales/crear-sucursal',
+    actualizarScursal:
+      environment.urls.msTechcodeAdministracionGestionOrganizacional +
+      '/sucursales/actualizar-sucursal',
+    agregarAlmacen:
+      environment.urls.msTechcodeAdministracionGestionOrganizacional +
+      '/sucursales/agregar-almacen-sucursal',
+    actualizarAlmacen:
+      environment.urls.msTechcodeAdministracionGestionOrganizacional +
+      '/sucursales/actualizar-almacen-sucursal',
   },
   stockVentas: {
     guardarProducto: '/stock-ventas/guardar-producto',
@@ -179,7 +281,9 @@ export const ENDPOINTS = {
     actualizarAlmacenes: '/almacenes/actualizar-almacen',
   },
   catalogoBancos: {
-    consultar: '/catalogo-bancos/consultar',
+    consultar:
+      environment.urls.msTechcodeAdministracionGestionOrganizacional +
+      '/catalogo-bancos/consultar',
   },
   ticket: {
     guardar: '/tickets/guardar',
@@ -229,11 +333,21 @@ export const ENDPOINTS = {
     eliminarRolPermisos: '/roles-permisos/eliminar-rol-permisos',
   },
   empleadosRoles: {
-    consultar: '/empleados-roles/consultar',
-    consultarRoles: '/empleados-roles/consultar-roles',
-    consultarEmpleadosRoles: '/empleados-roles/consultar-empleados-roles',
-    guardarEmpleadosRoles: '/empleados-roles/guardar',
-    eliminarEmpleadosRoles: '/empleados-roles/eliminar',
+    consultar:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/empleados-roles/consultar',
+    consultarRoles:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/empleados-roles/consultar-roles',
+    consultarEmpleadosRoles:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/empleados-roles/consultar-empleados-roles',
+    guardarEmpleadosRoles:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/empleados-roles/guardar',
+    eliminarEmpleadosRoles:
+      environment.urls.msTechcodeAdministracionEmpleados +
+      '/empleados-roles/eliminar',
   },
   almacenesProductosEntradas: {
     consultarEntradas: '/productos-entradas/consultar-entradas',

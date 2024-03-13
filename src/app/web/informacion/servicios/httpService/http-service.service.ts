@@ -27,7 +27,7 @@ export class HttpclientService {
     });
 
     return this.http
-      .post<T>(environment.urls.apiSistemaAdministrativo + url, body || {}, {
+      .post<T>(url, body || {}, {
         headers: headersRequest,
       })
       .pipe(
@@ -50,7 +50,7 @@ export class HttpclientService {
     });
 
     return this.http
-      .get<T>(environment.urls.apiSistemaAdministrativo + url, {
+      .get<T>(url, {
         headers: headersRequest,
       })
       .pipe(
@@ -73,7 +73,7 @@ export class HttpclientService {
     });
 
     return this.http
-      .put<T>(environment.urls.apiSistemaAdministrativo + url, body || {}, {
+      .put<T>(url, body || {}, {
         headers: headersRequest,
       })
 
@@ -97,7 +97,7 @@ export class HttpclientService {
     });
 
     return this.http
-      .delete<T>(environment.urls.apiSistemaAdministrativo + url, {
+      .delete<T>(url, {
         headers: headersRequest,
       })
 

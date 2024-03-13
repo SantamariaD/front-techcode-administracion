@@ -515,9 +515,10 @@ export class GestionHorariosComponent implements OnInit {
         });
 
         // Asignar el array local al empleado actual
-        empleado.horaro = horasPorEmpleado.map((day: DataHorario) => ({
-          ...day,
-        }));
+        if (empleado.horaro)
+          empleado.horaro = horasPorEmpleado.map((day: DataHorario) => ({
+            ...day,
+          }));
       }
     });
     if (this.listaTablero.length < this.listaEmpleados.length) {
@@ -544,7 +545,9 @@ export class GestionHorariosComponent implements OnInit {
   cerrarModal(event: any) {
     if (event.actualizar) {
       this.mostrarModal = event.cerrarModal;
-      this.message.success('Los horarios se han actualizado de manera correcta')
+      this.message.success(
+        'Los horarios se han actualizado de manera correcta'
+      );
       this.traerTodosHorarios(1);
     } else {
       this.mostrarModal = false;

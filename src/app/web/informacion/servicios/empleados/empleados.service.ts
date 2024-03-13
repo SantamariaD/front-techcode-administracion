@@ -22,9 +22,8 @@ export class EmpleadosService {
   traerTodosEmpleados(): Observable<
     HttpClientServiceInterface<Array<Empleados>>
   > {
-    const uuidbd = desencriptacion(localStorage.getItem('uuidBD') || '');
     return this.http.get<HttpClientServiceInterface<Array<Empleados>>>(
-      ENDPOINTS.empleados.traerEmpleados + '/' + uuidbd
+      ENDPOINTS.empleados.traerEmpleados
     );
   }
 

@@ -6,7 +6,8 @@ export const environment = {
   version: '1.0.0',
   production: false,
   urls: {
-    apiSistemaAdministrativo: 'http://localhost:8003/api',
+    msTechcodeAdministracionEmpleados: 'http://localhost:8004/api',
+    msTechcodeAdministracionGestionOrganizacional: 'http://localhost:8005/api',
     apiAutenticacion: 'http://localhost:8001/api',
   },
   modulosAplicacion: {

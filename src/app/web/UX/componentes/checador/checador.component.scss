@@ -1,0 +1,234 @@
+@import "../../../../../styles.scss";
+
+.contenedor-principal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contenido {
+  width: 400px;
+  background-color: #fff;
+  border-radius: 27px;
+  position: relative;
+  z-index: 10000;
+  border: 5px solid $color-brand-primary;
+  margin-top: 50px;
+}
+
+input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #8c8c8c;
+  outline: none;
+  height: 35px;
+  font-size: 18px;
+}
+
+input:focus {
+  outline: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  box-shadow: none;
+}
+
+.reloj {
+  justify-content: center;
+  align-items: center;
+  width: 85%;
+  height: 120px;
+  margin: 0px auto 25px auto;
+  border: 2px solid $color-brand-primary;
+  border-radius: 10px;
+}
+
+.reloj h3 {
+  font-size: 25px;
+  font-weight: 600;
+  text-align: center;
+  color: $color-brand-primary;
+}
+
+.titulo-checador {
+  font-size: 28px;
+  font-weight: 600;
+  text-align: center;
+  color: $color-brand-primary;
+}
+
+.formulario {
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  margin: 0px auto 25px auto;
+}
+
+.mensaje {
+  margin-top: 15%;
+  margin-bottom: 5%;
+  margin-left: 20%;
+}
+
+.imagen {
+  width: 160px;
+  height: 160px;
+  border: 4px solid $color-brand-primary;
+  border-radius: 50%;
+  margin: -110px auto 0px auto;
+  background: white;
+}
+
+.icono {
+  width: 130px;
+  margin-top: 15px;
+  margin-left: 11.5px;
+}
+
+.cerrar {
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 18px;
+  margin: 0px 10px 0px auto;
+  color: $color-brand-primary;
+}
+
+.modal-footer {
+  width: auto;
+  border-radius: 0px 0px 11px 11px;
+  -moz-border-radius: 0px 0px 11px 11px;
+  -webkit-border-radius: 0px 0px 11px 11px;
+  border: 0px solid #000000;
+  background-color: $color-brand-primary;
+  padding: 10px;
+  height: 80px;
+  &__boton {
+    width: 250px;
+    border-radius: 10px;
+    margin: 0px auto;
+    button {
+      width: 100%;
+      height: 35px;
+      background: #016acc;
+      color: white;
+      border: none;
+      border-radius: 10px;
+    }
+  }
+}
+
+.contenedor-iconos {
+  width: 200px;
+  height: 45px;
+  margin: 10px auto 0px auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.desactivado {
+  button {
+    background: #ffffff;
+    color: rgb(188, 188, 188);
+    cursor: not-allowed;
+    &:hover {
+      opacity: none;
+    }
+  }
+}
+
+.titulo {
+  font-size: 20px;
+  text-align: center;
+  color: $color-brand-primary;
+  font-weight: 600;
+}
+
+.icono-info {
+  color: #3b71ca;
+  font-size: 24px;
+}
+
+.registro-credenciales{
+  width: 100%;
+.formulario{
+  .form-usuario{
+    border-bottom: 1px solid black;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    span{
+      padding: 5px;
+      font-size: 15px;
+    }
+    input{
+      padding: 2px;
+      border: none; /* Quitar el borde */
+      outline: none; /* Quitar el contorno de enfoque */
+      background-color: transparent;
+    }
+  }
+}
+}
+
+.buscador {
+  width: 100%;
+  &__contenedor {
+    &--label {
+      font-size: 16px;
+      font-weight: 600;
+      color: #999999;
+    }
+    &--opciones {
+      position: absolute;
+      z-index: 10010;
+      max-height: 100px;
+      width: 70%;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #003e78 #a3a3a3 !important;
+      background: white;
+      border: 1px solid rgb(237, 237, 237);
+      padding: 0px;
+      &::-webkit-scrollbar {
+        width: 3px;
+        border-radius: 2px;
+      }
+      &::-webkit-scrollbar-track {
+        background-color: #dddddd;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: #003e78;
+      }
+      option {
+        padding: 3px;
+        height: 40px;
+        line-height: 40px; /* Mismo valor que la altura */
+        &:hover {
+          background: #e6f7ff;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+.error-acceso{
+  padding: 3px;
+  background: rgb(238, 96, 96);
+  color: white;
+  width: 100%;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.desactivado {
+  background: #ffffff !important;
+  color: rgb(188, 188, 188) !important;
+}

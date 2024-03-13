@@ -1,0 +1,396 @@
+@import "../../../../../../../styles.scss";
+
+.documentos {
+  width: 100%;
+  margin: 20px auto;
+  &__cabecera {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 10px;
+    height: 115px;
+    &--descripcion {
+      width: 100%;
+      margin: auto;
+      text-align: center;
+      color: $color-brand-primary;
+      &__texto {
+        font-size: 14px;
+        width: 100%;
+        margin: 0px auto 10px auto;
+      }
+      &__desc {
+        text-align: center;
+        color: rgb(98, 98, 98);
+        font-weight: 600;
+      }
+      &__boton {
+        width: 240px;
+        margin: 0px auto 20px auto;
+        -webkit-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
+        box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
+        border-radius: 5px;
+        button {
+          height: 30px;
+          font-size: 13px;
+          color: $color-brand-primary;
+          background-color: white;
+          border: 1px solid $color-brand-primary;
+          border-radius: 5px;
+          margin: 0px auto;
+          padding: 5px auto;
+          width: 100%;
+          &:hover {
+            color: #016acc;
+            border: 1px solid #016acc;
+          }
+        }
+      }
+    }
+    &--buscador {
+      width: 100%;
+      &__contenedor {
+        &--label {
+          font-size: 16px;
+          font-weight: 600;
+          color: #999999;
+        }
+        &--opciones {
+          position: absolute;
+          z-index: 10010;
+          max-height: 250px;
+          width: 40%;
+          overflow-y: auto;
+          scrollbar-width: thin;
+          scrollbar-color: #003e78 #a3a3a3 !important;
+          background: white;
+          border: 1px solid rgb(237, 237, 237);
+          padding: 7px;
+          margin-top: 5px;
+          &::-webkit-scrollbar {
+            width: 3px;
+            border-radius: 2px;
+          }
+          &::-webkit-scrollbar-track {
+            background-color: #dddddd;
+          }
+          &::-webkit-scrollbar-thumb {
+            background-color: #003e78;
+          }
+          option {
+            padding: 5px;
+            &:hover {
+              background: #e6f7ff;
+              cursor: pointer;
+            }
+          }
+        }
+        &--input {
+          font-size: 20px;
+          font-weight: 600;
+          width: 90%;
+          border: none;
+          border-bottom: 1px solid rgb(200, 200, 200);
+          outline: none;
+          padding-left: 5px;
+        }
+        &--lupa {
+          font-size: 20px;
+          font-weight: 600;
+          padding-bottom: 6px;
+          border-bottom: 1px solid rgb(200, 200, 200);
+        }
+      }
+    }
+  }
+  &__info-empleado {
+    margin-top: 15px;
+    display: grid;
+    grid-template-columns: 20% 80%;
+    column-gap: 10px;
+    &--informacion {
+      &--imagen {
+        width: 200px;
+        height: 200px;
+        border: 3px solid $color-brand-primary;
+        margin: 5px auto;
+        border-radius: 5px;
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 3px;
+        }
+      }
+      &--nombre {
+        font-size: 24px;
+        font-weight: 600;
+        color: $color-brand-primary;
+        text-align: center;
+      }
+      &--descripcion {
+        text-align: center;
+        font-size: 14px;
+        color: #898989;
+      }
+      &--contacto {
+        text-align: center;
+        font-size: 18px;
+        font-weight: 600;
+      }
+    }
+    &--tabs {
+      &--contenedor-cards {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 10px;
+        &__card {
+          border: 1px solid $color-brand-primary;
+          border-radius: 10px;
+          padding: 10px;
+          margin-bottom: 15px;
+          &--documento {
+            p {
+              text-align: center;
+              font-size: 18px;
+              line-height: 20px;
+              color: $color-brand-primary;
+            }
+            margin-bottom: 20px;
+          }
+          &--opciones {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            &__boton {
+              width: 95%;
+              margin: 0px auto;
+              button {
+                width: 100%;
+              }
+              .ver {
+                background: white;
+                color: $color-brand-primary;
+                border: 1px solid $color-brand-primary;
+                border-radius: 5px;
+                transition: 0.7s all ease;
+                cursor: pointer;
+                &:hover {
+                  background: $color-brand-primary;
+                  color: white;
+                }
+              }
+              .evaluar {
+                width: 95%;
+                background: white;
+                color: $color-brand-primary;
+                border: 1px solid $color-brand-primary;
+                border-radius: 5px;
+                transition: 0.7s all ease;
+                cursor: pointer;
+                &:hover {
+                  background: $color-brand-primary;
+                  color: white;
+                }
+              }
+              .eliminar {
+                background: white;
+                color: rgb(253, 37, 37);
+                border: 1px solid rgb(253, 37, 37);
+                border-radius: 5px;
+                transition: 0.7s all ease;
+                cursor: pointer;
+                &:hover {
+                  background: rgb(253, 37, 37);
+                  color: white;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  &__contenido {
+    width: 730px;
+    height: 270px;
+    background-color: #fff;
+    border-radius: 10px;
+    position: relative;
+    border: 3px solid $color-brand-primary;
+    &--cerrar {
+      position: absolute;
+      top: 0px;
+      right: 10px;
+      font-size: 25px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    &--seccion {
+      margin-top: 10px;
+      padding: 5px;
+      height: 210px;
+      &__titulo {
+        font-size: 26px;
+        color: $color-brand-primary;
+        font-weight: 600;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+      &__formulario {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 10px;
+        margin-bottom: 20px;
+        &--contenedor-radio {
+          &--informacion {
+            padding: 5px;
+            &__documento {
+              text-align: center;
+              width: 95%;
+              margin: 0px auto;
+              padding-bottom: 5px;
+              border-bottom: 1px aolid $color-brand-primary;
+              font-size: 22px;
+              font-weight: 600;
+              color: $color-brand-primary;
+            }
+            &__especificaciones {
+              text-align: center;
+              color: $color-brand-primary;
+              font-size: 14px;
+              color: #888888;
+              line-height: 16px;
+              margin-bottom: 10px;
+              max-height: 50px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+          }
+        }
+        &--textarea {
+          width: 95%;
+          margin: 0px auto;
+          textarea {
+            width: 100%;
+          }
+        }
+      }
+    }
+    &--footer {
+      width: auto;
+      border-radius: 0px 0px 5px 5px;
+      -moz-border-radius: 0px 0px 5px 5px;
+      -webkit-border-radius: 0px 0px 5px 5px;
+      border: 0px solid #000000;
+      background-color: $color-brand-primary;
+      padding: 5px 10px;
+      &__contenedor {
+        width: 350px;
+        margin: 5px auto 0px auto;
+        display: flex;
+        justify-content: space-between;
+        &__boton {
+          color: white;
+          background: rgb(0, 121, 235);
+          width: 250px;
+          height: 30px;
+          margin: 0px auto;
+          border-radius: 5px;
+          border: none;
+          button {
+            width: 100%;
+            border: none;
+            background: rgb(0, 121, 235);
+            height: 30px;
+            border-radius: 5px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+
+nz-result {
+  width: 95%;
+  margin: 10px auto;
+}
+
+.stock-p {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.desactivado {
+  button {
+    background: #f9f9f9;
+    color: rgb(89, 89, 89);
+    cursor: not-allowed;
+    &:hover {
+      opacity: none;
+    }
+  }
+}
+
+.radio {
+  font-size: 14px;
+  color: $color-brand-primary;
+  font-weight: 700;
+}
+
+.aceptado {
+  color: rgb(5, 152, 29) !important;
+  border-bottom: 1.5px dotted rgb(5, 152, 29) !important;
+  padding: 5px;
+  margin: 10px auto 0px auto;
+  width: 30%;
+  border-radius: 5px;
+  font-weight: 600;
+  width: 90%;
+}
+
+.revision {
+  color: rgb(229, 146, 22) !important;
+  border-bottom: 1.5px dotted rgb(229, 146, 22) !important;
+  padding: 5px;
+  margin: 10px auto 0px auto;
+  width: 30%;
+  border-radius: 5px;
+  font-weight: 600;
+  width: 90%;
+}
+
+.rechazado {
+  color: rgb(192, 18, 18) !important;
+  border-bottom: 1.5px dotted rgb(192, 18, 18) !important;
+  padding: 5px;
+  margin: 10px auto 0px auto;
+  width: 30%;
+  border-radius: 5px;
+  font-weight: 600;
+  width: 90%;
+}
+
+.sinAgregar {
+  color: rgb(0, 121, 235) !important;
+  border-bottom: 1.5px dotted rgb(0, 121, 235) !important;
+  padding: 5px;
+  margin: 10px auto 0px auto;
+  width: 30%;
+  border-radius: 5px;
+  font-weight: 600;
+  width: 90%;
+}

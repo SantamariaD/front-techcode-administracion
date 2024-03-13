@@ -1,0 +1,193 @@
+<div *ngIf="mostrarModal" class="modal">
+  <div class="contenido">
+    <div class="cerrar" (click)="cerrar()">&times;</div>
+    <div class="titulo">
+      <div class="switch">
+        <p>Por semana</p>
+        <nz-switch (ngModelChange)="revisarSwitch()" [(ngModel)]="switchValue"></nz-switch>
+      </div>
+      <h1 style="text-align: center">Asignar Horario</h1>
+      <br />
+    </div>
+    <div style="text-align: center">
+      <h3>{{ empleado.nombreCompleto }}</h3>
+    </div>
+    <div class="contenido-central">
+      <div *ngIf="!switchValue" class="seleccion-dia">
+        <h3>{{ fechaSeleccionada.fecha }}</h3>
+      </div>
+      <div *ngIf="switchValue" class="seleccion-semana">
+        <div class="selector-laborales">
+          <h3 style="text-align: left; margin-left: 20px; padding: 10px">
+            Dias Laborables
+          </h3>
+          <div class="dias-laborales">
+            <div class="lista-dias" *ngFor="let semana of weekDays">
+              <span
+                (click)="Seleccionado(semana, 'retirar')"
+                *ngIf="listaSeleccionados.includes(semana)"
+                class="icon-menos"
+                nz-icon
+                nzType="minus-circle"
+                nzTheme="outline"
+              ></span>
+              <span
+                (click)="Seleccionado(semana, 'agregar')"
+                *ngIf="
+                  !listaSeleccionados.includes(semana) &&
+                  !diasDescSelect.includes(semana)
+                "
+                class="icon-plus"
+                nz-icon
+                nzType="plus-circle"
+                nzTheme="outline"
+              ></span>
+              <span
+                *ngIf="diasDescSelect.includes(semana)"
+                class="icon-plus-desactivado"
+                nz-icon
+                nzType="plus-circle"
+                nzTheme="outline"
+              ></span>
+              <p
+                class="elemento-desactivado"
+                *ngIf="
+                  !listaSeleccionados.includes(semana) &&
+                  diasDescSelect.includes(semana)
+                "
+              >
+                {{ semana.nombre }}
+              </p>
+              <p *ngIf="!diasDescSelect.includes(semana)">{{ semana.nombre }}</p>
+            </div>
+          </div>
+          
+        </div>
+        <div class="selector-descanso">
+          <h3 style="text-align: left; margin-left: 20px; padding: 10px">
+            Dias Descanso
+          </h3>
+          <div class="dias-descanso">
+            <div class="lista-dias" *ngFor="let dia of weekDays">
+              <span
+                (click)="seleccionadoDescanso(dia, 'retirar')"
+                *ngIf="diasDescSelect.includes(dia)"
+                class="icon-menos"
+                nz-icon
+                nzType="minus-circle"
+                nzTheme="outline"
+              ></span>
+              <span
+                (click)="seleccionadoDescanso(dia, 'agregar')"
+                *ngIf="
+                  !diasDescSelect.includes(dia) &&
+                  !listaSeleccionados.includes(dia)
+                "
+                class="icon-plus"
+                nz-icon
+                nzType="plus-circle"
+                nzTheme="outline"
+              ></span>
+              <span
+                *ngIf="
+                  !diasDescSelect.includes(dia) &&
+                  listaSeleccionados.includes(dia)
+                "
+                class="icon-plus-desactivado"
+                nz-icon
+                nzType="plus-circle"
+                nzTheme="outline"
+              ></span>
+              <p
+                *ngIf="
+                  !diasDescSelect.includes(dia) &&
+                  listaSeleccionados.includes(dia)
+                "
+                class="elemento-desactivado"
+              >
+                {{ dia.nombre }}
+              </p>
+              <p *ngIf="!listaSeleccionados.includes(dia)">
+                {{ dia.nombre }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div [formGroup]="formHorario" class="formulario" nz-row>
+        <div *ngIf="!switchValue" nz-col nzSpan="24" class="campos">
+          <select
+            formControlName="idHorGeneral"
+            id=""
+            (change)="seleccionaHorario()"
+          >
+            <option [value]="0" disabled selected>Selecciona un horario</option>
+            <option
+              *ngFor="let horario of horariosGenericos"
+              [value]="horario.id"
+            >
+              {{ horario.nombre }}
+            </option>
+          </select>
+        </div>
+
+        <div *ngIf="switchValue" nz-col nzSpan="12" class="campos">
+          <select
+            formControlName="idHorGeneral"
+            id=""
+            (change)="seleccionaHorario()"
+          >
+            <option [value]="0" disabled selected>Selecciona un horario</option>
+            <option
+              *ngFor="let horario of jornadaSinDescanso"
+              [value]="horario.id"
+            >
+             <p>{{ horario.nombre }}</p> 
+            </option>
+          </select>
+        </div>
+
+        <div *ngIf="switchValue" nz-col nzSpan="12" class="campos">
+          <span>
+            <input
+              placeholder="Número de semanas a repetir"
+              formControlName="repeticion"
+              type="number"
+            />
+          </span>
+        </div>
+
+        <div
+          *ngIf="horarioGralSeleccionado && horarioGralSeleccionado.nombre !== undefined"
+          nz-col
+          nzSpan="24"
+          class="campos"
+        >
+          <span
+            ><label for="">Intervalo</label>
+            <p>
+              {{ horarioGralSeleccionado.hora_entrada }} -
+              {{ horarioGralSeleccionado.hora_salida }}
+            </p></span
+          >
+          <span
+            ><label for="">Duración</label>
+            <p><b>Total horas : </b> {{ horarioGralSeleccionado.horas }}</p></span
+          >
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="switchValue" class="footer">
+      <div [ngClass]="{desactivado:!formHorario.valid || formHorario.value.idHorGeneral === 0 || (listaSeleccionados.length<1 && diasDescSelect.length<1)}" class="botn">
+        <button [disabled]="!formHorario.valid || formHorario.value.idHorGeneral === 0 || (listaSeleccionados.length<1 && diasDescSelect.length<1)" (click)="guardarHorario()">Guardar</button>
+      </div>
+    </div>
+    <div *ngIf="!switchValue" class="footer">
+      <div [ngClass]="{desactivado:formHorario.value.idHorGeneral === 0 }" class="botn">
+        <button [disabled]="!formHorario.get('idHorGeneral')?.valid && formHorario.value.idHorGeneral === 0" (click)="guardarHorario()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>

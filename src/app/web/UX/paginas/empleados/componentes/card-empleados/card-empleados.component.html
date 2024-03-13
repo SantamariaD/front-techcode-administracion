@@ -1,0 +1,100 @@
+<div class="modal">
+  <div class="modal__contenido">
+    <span class="modal__contenido--cerrar" (click)="clickCerrarModal()"
+      >&times;</span
+    >
+    <div class="modal__contenido--secciones">
+      <div *ngIf="seccionModal === 'informacion'">
+        <app-informacion-card
+          [empleado]="empleado"
+          (idJefeInmediato)="informacionJefeInmediato($event)"
+        ></app-informacion-card>
+      </div>
+      <div *ngIf="seccionModal === 'editar'">
+        <app-modal-editar
+          [empleado]="empleado"
+          [areas]="areas"
+          [puestos]="puestos"
+          [sucursales]="sucursales"
+          [catalogoBancos]="catalogoBancos"
+          [empleados]="empleados"
+          [empleadosRoles]="empleadosRoles"
+          [roles]="roles"
+          (editarEmpleado)="ActualizaDatos($event)"
+          (editarImagen)="actualizarImagen($event)"
+          (editarEmpleadoLaboral)="editarEmpleadoLaboral.emit($event)"
+          (guardarEmpleadoRoles)="guardarEmpleadoRoles.emit($event)"
+          (eliminarEmpleadoRoles)="eliminarEmpleadoRoles.emit($event)"
+        ></app-modal-editar>
+      </div>
+      <div *ngIf="seccionModal === 'eliminar'">
+        <app-eliminar-empleados
+          [empleado]="empleado"
+          [tituloEliminar]="tituloEliminar"
+          (eliminarProductoEmit)="modalBajaAlta()"
+        ></app-eliminar-empleados>
+      </div>
+    </div>
+    <div class="modal__contenido--footer">
+      <div class="modal__contenido--footer__contenedor-iconos">
+        <div
+          *ngIf="permisosSistema(['empleadosInformacionV'])"
+          class="modal__contenido--footer__contenedor-iconos--seccion"
+          (click)="clickInformacion()"
+        >
+          <span
+            class="modal__contenido--footer__contenedor-iconos--seccion__icono"
+            nz-icon
+            nzType="container"
+            nzTheme="outline"
+            [ngClass]="{ seleccionada: seccionModal === 'informacion' }"
+          ></span
+          ><br />
+          <span
+            class="modal__contenido--footer__contenedor-iconos--seccion__texto"
+            >Información</span
+          >
+        </div>
+        <div
+          *ngIf="permisosSistema(['empleadosInformacionM'])"
+          class="modal__contenido--footer__contenedor-iconos--seccion"
+          (click)="clickEditar()"
+        >
+          <span
+            class="modal__contenido--footer__contenedor-iconos--seccion__icono"
+            nz-icon
+            nzType="edit"
+            nzTheme="outline"
+            [ngClass]="{ seleccionada: seccionModal === 'editar' }"
+          ></span
+          ><br />
+          <span
+            class="modal__contenido--footer__contenedor-iconos--seccion__texto"
+            >Editar</span
+          >
+        </div>
+        <div
+          *ngIf="permisosSistema(['empleadosInformacionM'])"
+          class="modal__contenido--footer__contenedor-iconos--switch"
+        >
+          <nz-switch
+            id="bajaEmpleado"
+            (click)="clickEliminar()"
+            [(ngModel)]="switchValue"
+          ></nz-switch
+          ><br />
+          <span
+            *ngIf="!switchValue"
+            class="modal__contenido--footer__contenedor-iconos--seccion__texto"
+            >Dar de Alta</span
+          >
+          <span
+            *ngIf="switchValue"
+            class="modal__contenido--footer__contenedor-iconos--seccion__texto"
+            >Dar de Baja</span
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

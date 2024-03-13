@@ -1,0 +1,45 @@
+@import "../../../../../../../styles.scss";
+
+.eliminar {
+  padding-top: 140px;
+  margin-top: 35px;
+  &--datos {
+    &__nombre {
+      color: $color-brand-primary;
+      margin: 0px auto;
+      font-size: 24px;
+      font-weight: 600;
+      text-align: center;
+    }
+    &__descripcion {
+      color: $color-brand-primary;
+      margin: 0px auto 15px auto;
+      font-size: 14px;
+      text-align: center;
+    }
+  }
+  &__titulo {
+    text-align: center;
+    padding-top: 10px;
+    font-size: 16px;
+    color: black;
+    margin: 0px auto 0px auto;
+    width: 90%;
+  }
+  &__contenido {
+    width: 200px;
+    margin: 0px auto;
+    &--boton {
+      margin-top: 15px;
+      width: 100%;
+      background: #b7001f;
+      color: white;
+    }
+  }
+}
+
+.icono-info {
+  color: #dc4c64;
+  margin-right: 5px;
+  font-size: 24px;
+}

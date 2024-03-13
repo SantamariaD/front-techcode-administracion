@@ -1,0 +1,78 @@
+<div class="modal">
+  <div class="modal__contenido">
+    <div class="modal__contenido--footer">
+      <span class="modal__contenido--nombre">
+        <span nz-icon nzType="file-pdf" nzTheme="outline"></span>
+        {{ nombrePdf }}
+      </span>
+      <span class="modal__contenido--cerrar" (click)="clickCerrarModal()"
+        >&times;</span
+      >
+      <div class="modal__contenido--footer__contenedor-iconos">
+        <div>
+          <span
+            class="modal__contenido--footer__contenedor-iconos--icono"
+            nz-icon
+            nzType="printer"
+            nzTheme="outline"
+          ></span>
+        </div>
+        <span class="divisor">|</span>
+        <div class="icon-container">
+          <span
+            class="modal__contenido--footer__contenedor-iconos--icono"
+            nz-icon
+            nzType="plus"
+            nzTheme="outline"
+            (click)="clickMas()"
+          ></span>
+        </div>
+        <div class="icon-container">
+          <span
+            class="modal__contenido--footer__contenedor-iconos--icono porcentaje"
+            >{{ porcentaje }}</span
+          >
+        </div>
+        <div>
+          <span
+            class="modal__contenido--footer__contenedor-iconos--icono"
+            nz-icon
+            nzType="minus"
+            nzTheme="outline"
+            (click)="clickMenos()"
+          ></span>
+        </div>
+        <span class="divisor">|</span>
+        <div class="icon-container">
+          <a (click)="descargarPdf()"
+            ><span
+              class="modal__contenido--footer__contenedor-iconos--icono"
+              nz-icon
+              nzType="download"
+              nzTheme="outline"
+            ></span
+          ></a>
+        </div>
+      </div>
+    </div>
+    <div class="modal__contenido--pdf">
+      <div *ngIf="!mostrarPdf" class="modal__contenido--pdf--spin">
+        <div class="modal__contenido--pdf--spin--icono">
+          <span nz-icon [nzType]="'sync'" [nzSpin]="true"></span>
+        </div>
+        <p class="modal__contenido--pdf--spin--mensaje">Cargando Documento</p>
+      </div>
+      <pdf-viewer
+        *ngIf="mostrarPdf"
+        class="modal__contenido--pdf__visor"
+        [src]="pathVisor"
+        [render-text]="true"
+        [show-borders]="true"
+        [original-size]="false"
+        [zoom]="zoom"
+        [zoom-scale]="'page-width'"
+        style="height: 520px; margin: 5px auto 20px auto"
+      ></pdf-viewer>
+    </div>
+  </div>
+</div>

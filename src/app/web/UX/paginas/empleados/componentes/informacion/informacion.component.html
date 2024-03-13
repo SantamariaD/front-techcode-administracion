@@ -1,0 +1,316 @@
+<div class="informacion">
+  <section class="informacion--contenido">
+    <div class="informacion--contenido__card">
+      <figure class="informacion--contenido__card__imagen">
+        <img
+          *ngIf="empleado.archivoImagen"
+          class="imagen-ampleado"
+          [src]="
+            'data:image;base64,' + empleado.archivoImagen ||
+            '../../../../../../../assets/imagenes/usuario.png'
+          "
+          alt="empleado"
+        />
+        <img
+          *ngIf="!empleado.archivoImagen"
+          class="imagen-ampleado"
+          src="../../../../../../../assets/imagenes/usuario.png"
+          alt="empleado"
+        />
+      </figure>
+      <p class="informacion--contenido__card__nombre">
+        {{ empleado.nombres }}
+      </p>
+      <p class="informacion--contenido__card__nombre">
+        {{ empleado.apellido_paterno }} {{ empleado.apellido_materno }}
+      </p>
+      <p class="informacion--contenido__card__descripcion">
+        {{ empleado.descripcion }}
+      </p>
+      <div class="datos">
+        <div class="informacion--contenido__card__llave">
+          <span class="informacion--contenido__card__dato">
+            {{ empleado.correo_electronico }}
+          </span>
+        </div>
+        <div class="informacion--contenido__card__llave datos">
+          <span class="informacion--contenido__card__dato">
+            <span nz-icon nzType="phone" nzTheme="fill"></span>
+            {{ empleado.telefono }}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="informacion--contenido__datos">
+      <nz-tabset>
+        <nz-tab nzTitle="Información General">
+          <h3 class="informacion--contenido__datos--titulo">Datos Básicos</h3>
+          <div class="informacion--contenido__datos--seccion">
+            <div class="informacion--contenido__datos--seccion__info">
+              <p class="informacion--contenido__datos--seccion__info--llave">
+                Fecha de Nacimiento
+              </p>
+              <p class="informacion--contenido__datos--seccion__info--dato">
+                {{ empleado.fecha_nacimiento }}
+              </p>
+            </div>
+            <div class="informacion--contenido__datos--seccion__info">
+              <p class="informacion--contenido__datos--seccion__info--llave">
+                CURP
+              </p>
+              <p class="informacion--contenido__datos--seccion__info--dato">
+                {{ empleado.curp }}
+              </p>
+            </div>
+            <div class="informacion--contenido__datos--seccion__info">
+              <p class="informacion--contenido__datos--seccion__info--llave">
+                RFC
+              </p>
+              <p class="informacion--contenido__datos--seccion__info--dato">
+                {{ empleado.rfc }}
+              </p>
+            </div>
+            <div class="informacion--contenido__datos--seccion__info">
+              <p class="informacion--contenido__datos--seccion__info--llave">
+                No. Seguro Social
+              </p>
+              <p class="informacion--contenido__datos--seccion__info--dato">
+                {{ empleado.nss }}
+              </p>
+            </div>
+            <div class="informacion--contenido__datos--seccion__info">
+              <p class="informacion--contenido__datos--seccion__info--llave">
+                Género
+              </p>
+              <p class="informacion--contenido__datos--seccion__info--dato">
+                {{ empleado.genero }}
+              </p>
+            </div>
+            <div class="informacion--contenido__datos--seccion__info">
+              <p class="informacion--contenido__datos--seccion__info--llave">
+                Estado Civil
+              </p>
+              <p class="informacion--contenido__datos--seccion__info--dato">
+                {{ empleado.estado_civil }}
+              </p>
+            </div>
+          </div>
+          <h3 class="informacion--contenido__datos--titulo">Domicilio</h3>
+          <div class="informacion--contenido__datos--seccion">
+            <div class="informacion--contenido__datos--seccion__info">
+              <p class="informacion--contenido__datos--seccion__info--llave">
+                Calle
+              </p>
+              <p class="informacion--contenido__datos--seccion__info--dato">
+                {{ empleado.calle }}
+              </p>
+            </div>
+            <div class="informacion--contenido__datos--seccion__info">
+              <p class="informacion--contenido__datos--seccion__info--llave">
+                Número Exterior
+              </p>
+              <p class="informacion--contenido__datos--seccion__info--dato">
+                {{ empleado.numeroExt }}
+              </p>
+            </div>
+            <div class="informacion--contenido__datos--seccion__info">
+              <p class="informacion--contenido__datos--seccion__info--llave">
+                Número Interior
+              </p>
+              <p class="informacion--contenido__datos--seccion__info--dato">
+                {{ empleado.numeroInt }}
+              </p>
+            </div>
+            <div class="informacion--contenido__datos--seccion__info">
+              <p class="informacion--contenido__datos--seccion__info--llave">
+                Colonia
+              </p>
+              <p class="informacion--contenido__datos--seccion__info--dato">
+                {{ empleado.colonia }}
+              </p>
+            </div>
+            <div class="informacion--contenido__datos--seccion__info">
+              <p class="informacion--contenido__datos--seccion__info--llave">
+                Código Postal
+              </p>
+              <p class="informacion--contenido__datos--seccion__info--dato">
+                {{ empleado.codigoPostal }}
+              </p>
+            </div>
+            <div class="informacion--contenido__datos--seccion__info">
+              <p class="informacion--contenido__datos--seccion__info--llave">
+                Delegación o Municipio
+              </p>
+              <p class="informacion--contenido__datos--seccion__info--dato">
+                {{ empleado.delegacion }}
+              </p>
+            </div>
+            <div class="informacion--contenido__datos--seccion__info">
+              <p class="informacion--contenido__datos--seccion__info--llave">
+                Ciudad
+              </p>
+              <p class="informacion--contenido__datos--seccion__info--dato">
+                {{ empleado.ciudad }}
+              </p>
+            </div>
+            <div class="informacion--contenido__datos--seccion__info">
+              <p class="informacion--contenido__datos--seccion__info--llave">
+                Referencias
+              </p>
+              <p
+                class="informacion--contenido__datos--seccion__info--referencias"
+              >
+                {{ empleado.referencias }}
+              </p>
+            </div>
+          </div>
+        </nz-tab>
+        <nz-tab nzTitle="Información Laboral">
+          <div class="informacion--contenido__datos--seccion">
+            <div class="informacion--contenido__datos--seccion__info">
+              <p class="informacion--contenido__datos--seccion__info--llave">
+                Número de empleado
+              </p>
+              <p class="informacion--contenido__datos--seccion__info--dato">
+                {{ empleado.id }}
+              </p>
+            </div>
+            <div class="informacion--contenido__datos--seccion__info">
+              <p class="informacion--contenido__datos--seccion__info--llave">
+                Fecha de Ingreso
+              </p>
+              <p class="informacion--contenido__datos--seccion__info--dato">
+                {{ empleado.fechaAlta | date : "dd/MM/yyyy" }}
+              </p>
+            </div>
+            <div class="informacion--contenido__datos--seccion__info">
+              <p class="informacion--contenido__datos--seccion__info--llave">
+                Tipo de Contrato
+              </p>
+              <p class="informacion--contenido__datos--seccion__info--dato">
+                {{ empleado.tipoContrato }}
+              </p>
+            </div>
+            <div class="informacion--contenido__datos--seccion__info">
+              <p class="informacion--contenido__datos--seccion__info--llave">
+                Salario
+              </p>
+              <p class="informacion--contenido__datos--seccion__info--dato">
+                {{ empleado.salario | currency }}
+              </p>
+            </div>
+            <div class="informacion--contenido__datos--seccion__info">
+              <p class="informacion--contenido__datos--seccion__info--llave">
+                Clabe Interbancaria
+              </p>
+              <p class="informacion--contenido__datos--seccion__info--dato">
+                {{ empleado.clabeInterbancaria }}
+              </p>
+            </div>
+            <div class="informacion--contenido__datos--seccion__info">
+              <p class="informacion--contenido__datos--seccion__info--llave">
+                Institución Financiera
+              </p>
+              <p class="informacion--contenido__datos--seccion__info--dato">
+                {{ empleado.nombreBancoClabe }}
+              </p>
+            </div>
+            <div class="informacion--contenido__datos--seccion__info">
+              <p class="informacion--contenido__datos--seccion__info--llave">
+                Área
+              </p>
+              <p class="informacion--contenido__datos--seccion__info--dato">
+                {{ empleado.nombreArea }}
+              </p>
+            </div>
+            <div class="informacion--contenido__datos--seccion__info">
+              <p class="informacion--contenido__datos--seccion__info--llave">
+                Puesto
+              </p>
+              <p class="informacion--contenido__datos--seccion__info--dato">
+                {{ empleado.nombrePuesto }}
+              </p>
+            </div>
+            <div class="informacion--contenido__datos--seccion__info">
+              <p class="informacion--contenido__datos--seccion__info--llave">
+                Sucursal
+              </p>
+              <p class="informacion--contenido__datos--seccion__info--dato">
+                {{ empleado.nombreSucursal }}
+              </p>
+            </div>
+            <div class="informacion--contenido__datos--seccion__info">
+              <p class="informacion--contenido__datos--seccion__info--llave">
+                Horas Laborales al Día
+              </p>
+              <p class="informacion--contenido__datos--seccion__info--dato">
+                {{ empleado.horas_laborales }} Hrs
+              </p>
+            </div>
+            <div class="informacion--contenido__datos--seccion__info">
+              <p class="informacion--contenido__datos--seccion__info--llave">
+                Perido de Pago
+              </p>
+              <p class="informacion--contenido__datos--seccion__info--dato">
+                {{ empleado.periodoPago }}
+              </p>
+            </div>
+            <div class="informacion--contenido__datos--seccion__info">
+              <p class="informacion--contenido__datos--seccion__info--llave">
+                Jefe Inmediato
+              </p>
+              <p
+                class="informacion--contenido__datos--seccion__info--dato hover-jefe"
+                (click)="idJefeInmediato.emit(empleado.idJefeInmediato)"
+              >
+                {{ empleado.nombreJefeInmediato }}
+                {{ empleado.apellidoPaternoJefeInmediato }}
+                {{ empleado.apellidoMaternoJefeInmediato }}
+              </p>
+              <p class="tooltip">Haz clic para ver la información</p>
+            </div>
+            <div class="informacion--contenido__datos--seccion__info">
+              <p class="informacion--contenido__datos--seccion__info--llave">
+                Fecha de Baja
+              </p>
+              <p class="informacion--contenido__datos--seccion__info--dato">
+                {{ empleado.fechaBaja || "N/A" }}
+              </p>
+            </div>
+            <div class="informacion--contenido__datos--seccion__info">
+              <p class="informacion--contenido__datos--seccion__info--llave">
+                Fecha de Reingreso
+              </p>
+              <p class="informacion--contenido__datos--seccion__info--dato">
+                {{ empleado.fecha_reingreso || "N/A" }}
+              </p>
+            </div>
+          </div>
+        </nz-tab>
+        <nz-tab nzTitle="Roles">
+          <div class="informacion--contenido__datos--roles">
+            <h3 class="informacion--contenido__datos--roles--titulo">
+              <span nz-icon nzType="pushpin" nzTheme="fill"></span>
+              Roles Asignados al Empleado
+            </h3>
+            <article
+              class="informacion--contenido__datos--roles--rol"
+              *ngFor="let rol of empleado.roles"
+            >
+              <span nz-icon nzType="crown" nzTheme="fill"></span>
+              {{ rol.nombreRol }}
+            </article>
+          </div>
+        </nz-tab>
+      </nz-tabset>
+    </div>
+  </section>
+  <nz-alert
+    *ngIf="empleado.baja"
+    nzType="error"
+    [nzMessage]="
+      'El empleado fue dado de baja el ' + (empleado.fechaBaja | formateoFecha)
+    "
+    nzShowIcon
+  ></nz-alert>
+</div>

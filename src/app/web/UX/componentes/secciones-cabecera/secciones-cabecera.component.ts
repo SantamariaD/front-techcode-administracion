@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { SeccionInterface } from '../../../informacion/interfaces/secciones-cabecera';
+import { SeccionInterface } from '../../../informacion/interface/secciones-cabecera';
 
 @Component({
   selector: 'app-secciones-cabecera',

@@ -1,0 +1,584 @@
+<div class="modal">
+  <div class="modal__contenido">
+    <span class="modal__contenido--cerrar" (click)="cerrar()">&times;</span>
+    <div class="guardar">
+      <form
+        *ngIf="seccionFormulario == 'general'"
+        class="guardar--contenido"
+        [formGroup]="empleadoForm"
+      >
+        <div class="guardar--contenido__card">
+          <figure class="guardar--contenido__card__imagen">
+            <img
+              *ngIf="!urlImagen"
+              src="../../../../../../../assets/imagenes/usuario.png"
+              alt="empleado"
+            />
+            <img *ngIf="urlImagen" class="imagen-usuario" [src]="urlImagen" />
+          </figure>
+          <div class="agregar-imagen" (click)="openFileInput()">
+            <span nz-icon nzType="camera" nzTheme="fill"></span>
+            Agregar Fotografía
+          </div>
+          <p class="guardar--contenido__card__nombre">
+            <input
+              formControlName="nombres"
+              placeholder="Nombres (requerido)"
+              type="text"
+              appAlfabetico
+            />
+          </p>
+          <p class="guardar--contenido__card__nombre">
+            <input
+              formControlName="apellido_paterno"
+              placeholder="Apellido Paterno (requerido)"
+              type="text"
+              appAlfabetico
+            />
+          </p>
+          <p class="guardar--contenido__card__nombre">
+            <input
+              formControlName="apellido_materno"
+              placeholder="Apellido Materno (requerido)"
+              type="text"
+              appAlfabetico
+            />
+          </p>
+          <div class="guardar--contenido__card__nombre datos">
+            <span class="guardar--contenido__card__dato">
+              <input
+                formControlName="correo_electronico"
+                type="text"
+                placeholder="Correo Electrónico (requerido)"
+              />
+            </span>
+          </div>
+          <div class="guardar--contenido__card__nombre">
+            <span class="guardar--contenido__card__dato">
+              <input
+                formControlName="username"
+                placeholder="Nombre de Usuario (requerido)"
+                type="text"
+              />
+            </span>
+          </div>
+        </div>
+        <div class="guardar--contenido__datos">
+          <p class="guardar--contenido__datos__titulo">Información General</p>
+          <p class="guardar--contenido__datos__subtitulo">Datos Básicos</p>
+          <div class="guardar--contenido__datos--seccion">
+            <div class="guardar--contenido__datos--seccion__info">
+              <div class="guardar--contenido__datos--seccion__info--dato">
+                <input
+                  type="text"
+                  placeholder="Fecha de Nacimiento"
+                  appNumerosPositivos
+                  formControlName="fecha_nacimiento"
+                  appFechaNacimiento
+                />
+              </div>
+            </div>
+            <div class="guardar--contenido__datos--seccion__info">
+              <p class="guardar--contenido__datos--seccion__info--dato">
+                <input
+                  maxlength="18"
+                  formControlName="curp"
+                  placeholder="CURP"
+                  type="text"
+                  appCurp
+                />
+              </p>
+            </div>
+            <div class="guardar--contenido__datos--seccion__info">
+              <p class="guardar--contenido__datos--seccion__info--dato">
+                <input
+                  maxlength="13"
+                  formControlName="rfc"
+                  placeholder="RFC"
+                  type="text"
+                  appRfc
+                />
+              </p>
+            </div>
+            <div class="guardar--contenido__datos--seccion__info">
+              <p class="guardar--contenido__datos--seccion__info--dato">
+                <input
+                  maxlength="11"
+                  formControlName="nss"
+                  type="text"
+                  appNumerosPositivos
+                  placeholder="Número de Seguro Social"
+                />
+              </p>
+            </div>
+            <div class="guardar--contenido__datos--seccion__info">
+              <p class="guardar--contenido__datos--seccion__info--dato">
+                <select formControlName="genero">
+                  <option label="Género" disabled selected></option>
+                  <option label="Masculino" value="Masculino"></option>
+                  <option label="Femenino" value="Femenino"></option>
+                  <option label="Otro" value="Otro"></option>
+                </select>
+              </p>
+            </div>
+            <div class="guardar--contenido__datos--seccion__info">
+              <p class="guardar--contenido__datos--seccion__info--dato">
+                <select formControlName="estado_civil">
+                  <option label="Estado Civil" disabled selected></option>
+                  <option label="Soltera/o" value="Soltera/o"></option>
+                  <option label="Casada/o" value="Casada/o"></option>
+                  <option label="Viuda/o" value="Viuda/o"></option>
+                  <option label="Divorciada/o" value="Divorciada/o"></option>
+                  <option label="Separada/o" value="Separada/o"></option>
+                </select>
+              </p>
+            </div>
+            <div class="guardar--contenido__datos--seccion__info">
+              <p class="guardar--contenido__datos--seccion__info--dato">
+                <input
+                  formControlName="telefono"
+                  placeholder="Telefono"
+                  type="number"
+                />
+              </p>
+            </div>
+            <div class="guardar--contenido__datos--seccion__info">
+              <p class="guardar--contenido__datos--seccion__info--dato">
+                <input
+                  placeholder="Descripcion del Empleado"
+                  formControlName="descripcion"
+                />
+              </p>
+            </div>
+          </div>
+          <p class="guardar--contenido__datos__subtitulo">Domicilio</p>
+          <div class="guardar--contenido__datos--seccion">
+            <div class="guardar--contenido__datos--seccion__info">
+              <p class="guardar--contenido__datos--seccion__info--dato">
+                <input
+                  formControlName="calle"
+                  placeholder="Calle"
+                  type="text"
+                  appAlfabetico
+                />
+              </p>
+            </div>
+            <div class="guardar--contenido__datos--seccion__info">
+              <p class="guardar--contenido__datos--seccion__info--dato">
+                <input
+                  formControlName="numeroExt"
+                  placeholder="Número Exterior"
+                  type="text"
+                  appFormateoAlfanumerico
+                />
+              </p>
+            </div>
+            <div class="guardar--contenido__datos--seccion__info">
+              <p class="guardar--contenido__datos--seccion__info--dato">
+                <input
+                  formControlName="numeroInt"
+                  type="text"
+                  placeholder="Número Interior"
+                  appFormateoAlfanumerico
+                />
+              </p>
+            </div>
+            <div class="guardar--contenido__datos--seccion__info">
+              <p class="guardar--contenido__datos--seccion__info--dato">
+                <input
+                  formControlName="colonia"
+                  placeholder="Colonia"
+                  type="text"
+                />
+              </p>
+            </div>
+            <div class="guardar--contenido__datos--seccion__info">
+              <p class="guardar--contenido__datos--seccion__info--dato">
+                <input
+                  formControlName="delegacion"
+                  placeholder="Delegación"
+                  type="text"
+                  appAlfabetico
+                />
+              </p>
+            </div>
+            <div class="guardar--contenido__datos--seccion__info">
+              <p class="guardar--contenido__datos--seccion__info--dato">
+                <input
+                  formControlName="codigoPostal"
+                  placeholder="Código Postal"
+                  type="text"
+                  appNumerosPositivos
+                  maxlength="5"
+                />
+              </p>
+            </div>
+            <div class="guardar--contenido__datos--seccion__info">
+              <p class="guardar--contenido__datos--seccion__info--dato">
+                <input
+                  formControlName="ciudad"
+                  placeholder="Ciudad"
+                  type="text"
+                  appAlfabetico
+                />
+              </p>
+            </div>
+            <div class="guardar--contenido__datos--seccion__info">
+              <p class="guardar--contenido__datos--seccion__info--dato">
+                <input
+                  formControlName="referencias"
+                  placeholder="Referencias"
+                  type="text"
+                  appFormateoAlfanumerico
+                />
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="custom-file-input">
+          <input
+            type="file"
+            (change)="archivoImagen($event)"
+            id="fileInput"
+            accept="image/jpeg, image/png image/jpg image/gif"
+          />
+        </div>
+      </form>
+      <form
+        *ngIf="seccionFormulario == 'laboral'"
+        class="guardar--contenido"
+        [formGroup]="datosLaboralesForm"
+      >
+        <div class="guardar--contenido__card2 m-r-20">
+          <figure class="guardar--contenido__card2__imagen">
+            <img
+              *ngIf="empleadoForm.value.imagen"
+              [src]="
+                urlImagen || '../../../../../../../assets/imagenes/usuario.png'
+              "
+              alt="empleado"
+            />
+            <img
+              *ngIf="!empleadoForm.value.imagen"
+              src="../../../../../../../assets/imagenes/usuario.png"
+              alt="empleado"
+            />
+          </figure>
+          <p class="guardar--contenido__card2__nombre">
+            {{ empleadoForm.value.nombres }}
+          </p>
+          <p class="guardar--contenido__card2__nombre">
+            {{ empleadoForm.value.apellido_paterno }}
+            {{ empleadoForm.value.apellido_materno }}
+          </p>
+          <p class="guardar--contenido__card2__descripcion">
+            {{ empleadoForm.value.descripcion }}
+          </p>
+          <div class="datos">
+            <div class="guardar--contenido__card2__llave">
+              <span class="guardar--contenido__card2__dato">
+                {{ empleadoForm.value.correo_electronico }}
+              </span>
+            </div>
+            <div class="guardar--contenido__card2__llave datos">
+              <span class="guardar--contenido__card2__dato">
+                <span nz-icon nzType="phone" nzTheme="fill"></span>
+                {{ empleadoForm.value.telefono }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="guardar--contenido__datos">
+          <p class="guardar--contenido__datos__titulo">Información Laboral</p>
+          <div class="guardar--contenido__datos--seccion">
+            <div class="guardar--contenido__datos--seccion__info mb">
+              <p class="guardar--contenido__datos--seccion__info--dato">
+                <select
+                  placeholder="Selecciona una sucursal"
+                  formControlName="sucursal_id"
+                  id="'rol'"
+                >
+                  <option label="Sucursal (requerido)" disabled selected></option>
+                  <option
+                    *ngFor="let sucursal of sucursales"
+                    [value]="sucursal.id"
+                  >
+                    {{ sucursal.nombreSucursal }}
+                  </option>
+                </select>
+              </p>
+            </div>
+            <div class="guardar--contenido__datos--seccion__info mb">
+              <p class="guardar--contenido__datos--seccion__info--dato">
+                <select
+                  formControlName="area_id"
+                  (ngModelChange)="areaSeleccionada($event)"
+                >
+                  <option label="Área  (requerido)" disabled selected></option>
+                  <option
+                    *ngFor="let list of areas"
+                    [label]="list.area"
+                    [value]="list.id"
+                  ></option>
+                </select>
+              </p>
+            </div>
+            <div class="guardar--contenido__datos--seccion__info mb">
+              <p class="guardar--contenido__datos--seccion__info--dato">
+                <select
+                  placeholder="Puesto"
+                  formControlName="puesto_id"
+                >
+                  <option label="Puesto (requerido)" disabled selected></option>
+                  <option
+                    *ngFor="let list of puestosConArea"
+                    [label]="list.puesto"
+                    [value]="list.id"
+                  ></option>
+                </select>
+              </p>
+            </div>
+            <div class="guardar--contenido__datos--seccion__info mb">
+              <p class="guardar--contenido__datos--seccion__info--dato">
+                <select formControlName="tipoContrato">
+                  <option label="Tipo de Contrato" disabled selected></option>
+                  <option
+                    label="Contrato Indefinido"
+                    value="Contrato Indefinido"
+                  ></option>
+                  <option
+                    label="Contrato Temporal"
+                    value="Contrato Temporal"
+                  ></option>
+                  <option label="Por Obra" value="Por Evento"></option>
+                </select>
+              </p>
+            </div>
+            <div class="guardar--contenido__datos--seccion__info mb">
+              <p class="guardar--contenido__datos--seccion__info--dato">
+                <input
+                  formControlName="salario"
+                  placeholder="Salario"
+                  type="text"
+                  appFormateoMoneda
+                />
+              </p>
+            </div>
+            <div class="guardar--contenido__datos--seccion__info mb">
+              <p class="guardar--contenido__datos--seccion__info--dato">
+                <input
+                  formControlName="clabeInterbancaria"
+                  placeholder="Clabe Interbancaria"
+                  type="text"
+                />
+              </p>
+            </div>
+            <div class="guardar--contenido__datos--seccion__info mb">
+              <p class="guardar--contenido__datos--seccion__info--dato">
+                <select formControlName="idCatalogoBanco">
+                  <option label="Banco" disabled selected></option>
+                  <option
+                    *ngFor="let catalogo of catalogoBancos"
+                    [label]="catalogo.nombre"
+                    [value]="catalogo.id"
+                  ></option>
+                </select>
+              </p>
+            </div>
+            <div class="guardar--contenido__datos--seccion__info mb">
+              <p class="guardar--contenido__datos--seccion__info--dato">
+                <input
+                  formControlName="horas_laborales"
+                  placeholder="Horas Laborales al Día"
+                  type="text"
+                  appNumerosPositivos
+                />
+              </p>
+            </div>
+            <div class="guardar--contenido__datos--seccion__info mb">
+              <p class="guardar--contenido__datos--seccion__info--dato">
+                <select formControlName="periodoPago">
+                  <option label="Periodo de Pago" disabled selected></option>
+                  <option value="Mensual">Mensual</option>
+                  <option value="Quincenal">Quincenal</option>
+                  <option value="Semanal">Semanal</option>
+                  <option value="Díario">Díario</option>
+                  <option value="Por hora">Por hora</option>
+                </select>
+              </p>
+            </div>
+            <div class="guardar--contenido__datos--seccion__info mb">
+              <p class="guardar--contenido__datos--seccion__info--dato">
+                <select formControlName="idJefeInmediato">
+                  <option label="Jefe Inmediato" disabled selected></option>
+                  <option
+                    *ngFor="let empleado of empleados"
+                    [label]="
+                      empleado.nombres +
+                      ' ' +
+                      empleado.apellido_paterno +
+                      ' ' +
+                      empleado.apellido_materno
+                    "
+                    [value]="empleado.id"
+                  ></option>
+                </select>
+              </p>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div *ngIf="seccionFormulario == 'roles'" class="guardar--contenido">
+        <div class="guardar--contenido__card2 m-r-20">
+          <figure class="guardar--contenido__card2__imagen">
+            <img
+              *ngIf="empleadoForm.value.imagen"
+              [src]="
+                urlImagen || '../../../../../../../assets/imagenes/usuario.png'
+              "
+              alt="empleado"
+            />
+            <img
+              *ngIf="!empleadoForm.value.imagen"
+              src="../../../../../../../assets/imagenes/usuario.png"
+              alt="empleado"
+            />
+          </figure>
+          <p class="guardar--contenido__card2__nombre">
+            {{ empleadoForm.value.nombres }}
+          </p>
+          <p class="guardar--contenido__card2__nombre">
+            {{ empleadoForm.value.apellido_paterno }}
+            {{ empleadoForm.value.apellido_materno }}
+          </p>
+          <p class="guardar--contenido__card2__descripcion">
+            {{ empleadoForm.value.descripcion }}
+          </p>
+          <div class="datos">
+            <div class="guardar--contenido__card2__llave">
+              <span class="guardar--contenido__card2__dato">
+                {{ empleadoForm.value.correo_electronico }}
+              </span>
+            </div>
+            <div class="guardar--contenido__card2__llave datos">
+              <span class="guardar--contenido__card2__dato">
+                <span nz-icon nzType="phone" nzTheme="fill"></span>
+                {{ empleadoForm.value.telefono }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="guardar--contenido__datos">
+          <p class="guardar--contenido__datos__titulo">Roles</p>
+          <div class="guardar--contenido__datos--roles">
+            <div
+              class="guardar--contenido__datos--roles--lista"
+              cdkDropListGroup
+            >
+              <div class="guardar--contenido__datos--roles--lista__contenedor">
+                <h3
+                  class="guardar--contenido__datos--roles--lista__contenedor--titulo"
+                >
+                  <span nz-icon nzType="rotate-right" nzTheme="outline"> </span>
+                  Roles Asignados al Empleado
+                </h3>
+                <div
+                  cdkDropList
+                  [cdkDropListData]="rolesAsignados"
+                  class="example-list menu-sidebar"
+                  (cdkDropListDropped)="entradaRolesAsignado($event)"
+                >
+                  <div
+                    class="example-box"
+                    *ngFor="let rol of rolesAsignados"
+                    cdkDrag
+                  >
+                    <div
+                      class="example-custom-placeholder"
+                      *cdkDragPlaceholder
+                    ></div>
+                    <span nz-icon nzType="crown" nzTheme="fill"></span>
+                    {{ rol.nombre }}
+                  </div>
+                </div>
+              </div>
+              <div class="guardar--contenido__datos--roles--lista__contenedor">
+                <h3
+                  class="guardar--contenido__datos--roles--lista__contenedor--titulo"
+                >
+                  <span nz-icon nzType="rotate-left" nzTheme="outline"> </span>
+                  Roles sin Asignar al Empleado
+                </h3>
+                <div
+                  cdkDropList
+                  [cdkDropListData]="rolesSinAsignar"
+                  class="example-list menu-sidebar"
+                  (cdkDropListDropped)="entradaRolesNoAsignado($event)"
+                >
+                  <div
+                    class="example-box"
+                    *ngFor="let rol of rolesSinAsignar"
+                    cdkDrag
+                  >
+                    <div
+                      class="example-custom-placeholder"
+                      *cdkDragPlaceholder
+                    ></div>
+                    <span nz-icon nzType="crown" nzTheme="fill"></span>
+                    {{ rol.nombre }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal__contenido--footer">
+      <div class="enviar">
+        <button
+          *ngIf="seccionFormulario == 'laboral'"
+          class="m-r-20"
+          (click)="selectSeccionFormulario('general')"
+        >
+          <span nz-icon nzType="left" nzTheme="outline"></span>
+          Atras
+        </button>
+        <button
+          *ngIf="seccionFormulario == 'roles'"
+          class="m-r-20"
+          (click)="selectSeccionFormulario('laboral')"
+        >
+          <span nz-icon nzType="left" nzTheme="outline"></span>
+          Atras
+        </button>
+        <button
+          *ngIf="seccionFormulario == 'general'"
+          (click)="selectSeccionFormulario('laboral')"
+          [ngClass]="{ desactivado: !empleadoForm.valid }"
+          [disabled]="!empleadoForm.valid"
+        >
+          Siguiente
+          <span nz-icon nzType="right" nzTheme="outline"></span>
+        </button>
+        <button
+          *ngIf="seccionFormulario == 'laboral'"
+          [ngClass]="{ desactivado: !datosLaboralesForm.valid }"
+          [disabled]="!datosLaboralesForm.valid"
+          (click)="selectSeccionFormulario('roles')"
+        >
+          Siguiente
+          <span nz-icon nzType="right" nzTheme="outline"></span>
+        </button>
+        <button
+          *ngIf="seccionFormulario == 'roles'"
+          [disabled]="!cambioEmpleadoRoles()"
+          [ngClass]="{ desactivado: !cambioEmpleadoRoles() }"
+          (click)="crearUsuario()"
+        >
+          Finalizar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

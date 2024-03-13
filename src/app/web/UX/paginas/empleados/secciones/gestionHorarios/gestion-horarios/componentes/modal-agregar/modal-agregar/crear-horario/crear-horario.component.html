@@ -1,0 +1,65 @@
+<div class="modal">
+  <div class="contenido">
+    <span class="cerrar" (click)="clickCerrarModal()">&times;</span>
+    <div class="titulo">
+      <h1 *ngIf="horario === undefined">Crear Horario</h1>
+      <h1 *ngIf="horario">Editar Horario</h1>
+    </div>
+    <div [formGroup]="formHorario" class="contenido-central">
+      <input
+        placeholder="Nombre del horario"
+        formControlName="nombre"
+        type="text"
+      />
+      <div class="select-horas">
+        <select
+          formControlName="hora_entrada"
+          (change)="slectHoras()"
+          name=""
+          id=""
+        >
+          <option [value]="'0'" disabled selected>Hora Entrada</option>
+          <option *ngFor="let hora of hours" [value]="hora">
+            {{ hora }} hrs
+          </option>
+        </select>
+        <select
+          formControlName="hora_salida"
+          (change)="slectHoras()"
+          name=""
+          id=""
+        >
+          <option [value]="'0'" disabled selected>Hora Salida</option>
+          <option *ngFor="let hora of hours" [value]="hora">
+            {{ hora }} hrs
+          </option>
+        </select>
+      </div>
+      <p
+        *ngIf="
+          formHorario.value.horas !== 'NaN' && formHorario.value.horas !== ''
+        "
+      >
+        <b>Duración del horario :</b> {{ formHorario.value.horas }} hrs
+      </p>
+    </div>
+    <div class="bton">
+      <button
+        *ngIf="horario === undefined"
+        (click)="guardar()"
+        [disabled]="!formHorario.valid"
+        [ngClass]="{ desactivado: !formHorario.valid }"
+      >
+        Guardar
+      </button>
+      <button
+        *ngIf="horario"
+        (click)="editar()"
+        [disabled]="!formHorario.valid"
+        [ngClass]="{ desactivado: !formHorario.valid }"
+      >
+        Editar
+      </button>
+    </div>
+  </div>
+</div>

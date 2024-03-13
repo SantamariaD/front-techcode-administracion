@@ -1,1 +1,347 @@
-<p>documentos works!</p>
+<section class="documentos">
+  <div class="documentos__cabecera">
+    <div class="documentos__cabecera--descripcion">
+      <div class="documentos__cabecera--descripcion__texto">
+        <p class="stock-p">
+          <span nz-icon nzType="file" nzTheme="outline"></span>
+          Documentos de los Empleados
+        </p>
+        <p class="documentos__cabecera--descripcion__desc">
+          En está sección podrás administrar los documentos de los empleados.
+        </p>
+      </div>
+      <div
+        *ngIf="permisosSistema(['empleadosDocumentosM'])"
+        class="documentos__cabecera--descripcion__boton"
+        (click)="abrirModalAgregarPlantillaDocumento = true"
+      >
+        <button>
+          <span nz-icon nzType="plus" nzTheme="outline"></span>
+          Agregar un Nuevo Documento
+        </button>
+      </div>
+    </div>
+    <form class="documentos__cabecera--buscador">
+      <div class="documentos__cabecera--buscador__contenedor">
+        <p class="documentos__cabecera--buscador__contenedor--label">
+          Ingrese el Nombre del Empleado
+        </p>
+        <span
+          class="documentos__cabecera--buscador__contenedor--lupa"
+          nz-icon
+          nzType="search"
+          nzTheme="outline"
+        ></span>
+        <input
+          class="documentos__cabecera--buscador__contenedor--input"
+          type="text"
+          [formControl]="buscadorNombreEmpleado"
+          placeholder=""
+          (input)="bucarEmpleado()"
+          (blur)="mostrarOpcionesEmpleadosAutocomplet(false)"
+          (focus)="mostrarOpcionesEmpleadosAutocomplet(true)"
+        />
+        <div
+          *ngIf="mostrarOpcionesEmpleados"
+          class="documentos__cabecera--buscador__contenedor--opciones"
+        >
+          <option
+            *ngFor="let empleados of listaBusqueda"
+            (click)="selectOpcion(empleados)"
+          >
+            {{ empleados.nombres }} {{ empleados.apellido_paterno }}
+            {{ empleados.apellido_materno }}
+          </option>
+        </div>
+      </div>
+    </form>
+  </div>
+  <nz-result
+    *ngIf="!empleado.nombres"
+    nzStatus="info"
+    nzTitle="Realice una búsqueda de empleado"
+  >
+  </nz-result>
+  <div *ngIf="empleado.nombres" class="documentos__info-empleado">
+    <div class="documentos__info-empleado--informacion">
+      <div class="documentos__info-empleado--informacion--imagen">
+        <img
+          [src]="
+            'data:image;base64,' + empleado.archivoImagen ||
+            'assets/imagenes/user.png'
+          "
+          alt="Perfil"
+        />
+      </div>
+      <h2 class="documentos__info-empleado--informacion--nombre">
+        {{ empleado.nombreCompleto }}
+      </h2>
+      <p class="documentos__info-empleado--informacion--descripcion m-t-5">
+        Empleado del área de <strong>{{ empleado.nombreArea }}</strong
+        >, quien desempeña el puesto actualmente de
+        <strong>{{ empleado.nombrePuesto }}</strong
+        >, ha desempeñado esta labor desde el dia
+        <strong>{{ empleado.fechaAlta | date : "dd-MM-yyyy" }}</strong> a la
+        fecha, cuenta con un contrato de tipo
+        <strong>{{ empleado.tipoContrato }}</strong> y labora un total de
+        <strong>{{ empleado.horas_laborales }}</strong> horas por semana.
+      </p>
+    </div>
+    <nz-tabset class="documentos__info-empleado--tabs" nzTabPosition="right">
+      <nz-tab nzTitle="Evaluar Documentos">
+        <nz-result
+          *ngIf="platillasDocumentosEmpleado.length < 1"
+          nzStatus="warning"
+          nzTitle="No hay documentos solicitados"
+        >
+        </nz-result>
+        <div class="documentos__info-empleado--tabs--contenedor-cards">
+          <div
+            *ngFor="let plantillaDocumento of platillasDocumentosEmpleado"
+            class="documentos__info-empleado--tabs--contenedor-cards__card"
+          >
+            <div
+              *ngIf="plantillaDocumento.estatus !== 'Sin Agregar'"
+              class="documentos__info-empleado--tabs--contenedor-cards__card--documento"
+            >
+              <p>
+                <b>
+                  <span
+                    class="m-r-5"
+                    nz-icon
+                    nzType="file-pdf"
+                    nzTheme="outline"
+                  ></span>
+                  {{ plantillaDocumento.nombreDocumento }}
+                </b>
+              </p>
+              <p
+                [ngClass]="{
+                  aceptado: plantillaDocumento.estatus == 'Aceptado',
+                  revision: plantillaDocumento.estatus == 'En Revisión',
+                  rechazado: plantillaDocumento.estatus == 'Rechazado',
+                  sinAgregar: plantillaDocumento.estatus == 'Sin Agregar'
+                }"
+              >
+                {{ plantillaDocumento.estatus }}
+              </p>
+            </div>
+            <div
+              *ngIf="plantillaDocumento.estatus === 'Sin Agregar'"
+              class="documentos__info-empleado--tabs--contenedor-cards__card--documento"
+            >
+              <p>
+                <span
+                  class="m-r-5"
+                  nz-icon
+                  nzType="file-pdf"
+                  nzTheme="outline"
+                ></span>
+                <b>{{ plantillaDocumento.nombreDocumento }}</b>
+              </p>
+              <p class="sinAgregar">
+                {{ plantillaDocumento.estatus }}
+              </p>
+            </div>
+            <div
+              class="documentos__info-empleado--tabs--contenedor-cards__card--opciones"
+            >
+              <div
+                *ngIf="plantillaDocumento.estatus !== 'Sin Agregar'"
+                class="documentos__info-empleado--tabs--contenedor-cards__card--opciones__boton"
+              >
+                <button class="ver" (click)="abrirVisor(plantillaDocumento)">
+                  <span nz-icon nzType="eye"></span>Ver
+                </button>
+              </div>
+              <div
+                *ngIf="
+                  (plantillaDocumento.estatus !== 'Sin Agregar' &&
+                  permisosSistema(['empleadosDocumentosM']))
+                "
+                class="documentos__info-empleado--tabs--contenedor-cards__card--opciones__boton"
+              >
+                <button
+                  class="evaluar"
+                  (click)="evaluarDocumento(plantillaDocumento)"
+                >
+                  <span nz-icon nzType="form"></span>Evaluar
+                </button>
+              </div>
+              <div
+                *ngIf="permisosSistema(['empleadosDocumentosM'])"
+                class="documentos__info-empleado--tabs--contenedor-cards__card--opciones__boton"
+              >
+                <button
+                  class="eliminar"
+                  (click)="desasignarPlantillaDocumento(plantillaDocumento)"
+                >
+                  <p>
+                    <span nz-icon nzType="delete" nzTheme="outline"></span
+                    >Desasignar
+                  </p>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nz-tab>
+      <nz-tab nzTitle="Solicitar documentos">
+        <nz-result
+          *ngIf="plantillas.length < 1"
+          nzStatus="warning"
+          nzTitle="No hay más documentos por solicitar"
+        >
+        </nz-result>
+        <div class="documentos__info-empleado--tabs--contenedor-cards">
+          <div
+            *ngFor="let plantilla of plantillas"
+            class="documentos__info-empleado--tabs--contenedor-cards__card"
+          >
+            <div
+              class="documentos__info-empleado--tabs--contenedor-cards__card--documento"
+            >
+              <p>
+                <b>
+                  <span nz-icon nzType="file-pdf" nzTheme="outline"></span>
+                  {{ plantilla.nombreDocumento }}
+                </b>
+              </p>
+            </div>
+            <div
+              class="documentos__info-empleado--tabs--contenedor-cards__card--opciones"
+            >
+              <div
+                *ngIf="permisosSistema(['empleadosDocumentosM'])"
+                class="documentos__info-empleado--tabs--contenedor-cards__card--opciones__boton"
+              >
+                <button
+                  class="ver"
+                  (click)="agregarPlantillaDocumento(plantilla)"
+                >
+                  <p>
+                    <span nz-icon nzType="plus" nzTheme="outline"></span
+                    >Solicitar
+                  </p>
+                </button>
+              </div>
+              <div
+                *ngIf="permisosSistema(['empleadosDocumentosM'])"
+                class="documentos__info-empleado--tabs--contenedor-cards__card--opciones__boton"
+              >
+                <button
+                  class="ver"
+                  (click)="editarPlantillaDocumento(plantilla)"
+                >
+                  <p>
+                    <span nz-icon nzType="edit" nzTheme="outline"></span>Editar
+                  </p>
+                </button>
+              </div>
+              <div
+                *ngIf="permisosSistema(['empleadosDocumentosM'])"
+                class="documentos__info-empleado--tabs--contenedor-cards__card--opciones__boton"
+              >
+                <button
+                  class="eliminar"
+                  (click)="eliminarPlantillaDocumento(plantilla)"
+                >
+                  <p>
+                    <span nz-icon nzType="delete" nzTheme="outline"></span
+                    >Eliminar
+                  </p>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nz-tab>
+    </nz-tabset>
+  </div>
+</section>
+
+<div class="modal" *ngIf="abrirModalEvaluar">
+  <div class="modal__contenido">
+    <span class="modal__contenido--cerrar" (click)="abrirModalEvaluar = false"
+      >&times;</span
+    >
+    <div class="modal__contenido--seccion">
+      <h3 class="modal__contenido--seccion__titulo">Evaluar Documento</h3>
+      <div class="modal__contenido--seccion__formulario">
+        <div class="modal__contenido--seccion__formulario--contenedor-radio">
+          <div
+            class="modal__contenido--seccion__formulario--contenedor-radio--informacion"
+          >
+            <h4
+              class="modal__contenido--seccion__formulario--contenedor-radio--informacion__documento"
+            >
+              {{ plantillaDocumento.nombreDocumento }}
+            </h4>
+            <p
+              class="modal__contenido--seccion__formulario--contenedor-radio--informacion__especificaciones"
+            >
+              {{ plantillaDocumento.especificaciones }}
+            </p>
+          </div>
+          <nz-radio-group [formGroup]="evaluarForm" nzName="radiogroup">
+            <label
+              class="radio"
+              nz-radio
+              nzValue="Aceptado"
+              formControlName="aceptar"
+              >Aceptar Documento</label
+            >
+            <label
+              class="radio"
+              nz-radio
+              nzValue="Rechazado"
+              formControlName="rechazar"
+              >Rechazar Documento</label
+            >
+          </nz-radio-group>
+        </div>
+        <div
+          class="modal__contenido--seccion__formulario--textarea"
+          [formGroup]="evaluarForm"
+        >
+          <textarea
+            formControlName="comentario"
+            placeholder=" Agrega aqui tus comentarios"
+            rows="7"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal__contenido--footer">
+      <div class="modal__contenido--footer__contenedor">
+        <div
+          class="modal__contenido--footer__contenedor__boton"
+          [ngClass]="{ desactivado: !evaluarForm.valid }"
+        >
+          <button [disabled]="!evaluarForm.valid" (click)="modalRevision()">
+            Enviar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-visor-pdf
+  *ngIf="mostrarVisor"
+  [path]="urlDescarga"
+  (clickCerrar)="mostrarVisor = false"
+></app-visor-pdf>
+
+<app-crear-documentos
+  *ngIf="abrirModalAgregarPlantillaDocumento"
+  (cerrarModal)="abrirModalAgregarPlantillaDocumento = false"
+  (guardarDocumentoSolicitado)="guardarDocumentoSolicitado($event)"
+></app-crear-documentos>
+
+<app-editar-documentos
+  *ngIf="abrirModalActualizarPlantillaDocumento"
+  [plantillaActualizar]="plantillaActualizar"
+  (cerrarModalEditarDocumento)="abrirModalActualizarPlantillaDocumento = false"
+  (actualizarDocumentoSolicitado)="actualizarDocumentoSolicitado($event)"
+></app-editar-documentos>

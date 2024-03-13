@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-spiner',
-  standalone: true,
-  imports: [],
   templateUrl: './spiner.component.html',
-  styleUrl: './spiner.component.scss'
+  styleUrls: ['./spiner.component.scss']
 })
-export class SpinerComponent {
+export class SpinerComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
 
 }

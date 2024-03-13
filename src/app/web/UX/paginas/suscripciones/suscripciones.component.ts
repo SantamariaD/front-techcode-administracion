@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { rutasSuscripciones } from './suscripciones-routes.module';
 import { ComponentesModule } from '../../componentes/componentes.module';
-import { ColumnaTabla } from '../../../informacion/interfaces/tabla';
+import { ColumnaTabla } from '../../../informacion/interface/tabla';
 import { CardSuscripcionesComponent } from './componentes/card-suscripciones/card-suscripciones.component';
 
 @Component({

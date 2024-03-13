@@ -1,1 +1,235 @@
-<p>estatus-trabajo works!</p>
+<div class="cabeceras">
+  <div class="titulos">
+    <div class="titulo-principal">
+      <span nz-icon nzType="field-time" nzTheme="outline"></span>
+      <p>Reportes de Trabajo</p>
+    </div>
+    <p class="subtitulo">
+      En este apartado deberas agregar los reportes diarios de tus empleados
+      para poder generar tus nóminas posteriormente.
+    </p>
+    <br />
+    <div class="todos-filtros" nz-row>
+      <div class="listaEmpleados">
+        <select name="areas" #areaSelect (change)="seleccionarArea($event)">
+          <option value="0" disabled selected>Buscar área</option>
+          <option value="todos">Todos</option>
+          <option *ngFor="let lista of areas" [ngValue]="lista">
+            {{ lista.area }}
+          </option>
+        </select>
+      </div>
+      <div class="listaEmpleados">
+        <select
+          name="puestos"
+          #puestoSelect
+          (change)="seleccionarPuesto($event)"
+        >
+          <option value="0" disabled selected>Buscar Puesto</option>
+          <option *ngIf="listaPuestos.length > 0" value="todos">Todos</option>
+          <option *ngFor="let lista of listaPuestos" [ngValue]="lista">
+            {{ lista.puesto }}
+          </option>
+        </select>
+      </div>
+      <div class="select-empleados">
+        <p #listaEmpleadosSelect (click)="agregar()">
+          Empleados <span nz-icon nzType="down" nzTheme="outline"></span>
+        </p>
+        <div *ngIf="mostrarLista" class="lista-seleccion m-t-10 menu-sidebar">
+          <div
+            class="lista-seleccion__mensaje"
+            *ngIf="listaEmpleados.length === 0"
+          >
+            <h5>Seleccione una área y puesto</h5>
+          </div>
+          <div
+            *ngIf="mostrarSelectTodos"
+            (click)="selcconTodos()"
+            class="renglon"
+          >
+            <span
+              nz-icon
+              nzType="plus-circle"
+              nzTheme="outline"
+              class="icono-agregar-activo"
+            ></span>
+            <p>Agregar todos</p>
+          </div>
+          <div *ngFor="let lista of listaEmpleados" type="text" class="renglon">
+            <span
+              *ngIf="!listaTablero.includes(lista)"
+              nz-icon
+              nzType="plus-circle"
+              nzTheme="outline"
+              class="icono-agregar-activo"
+              (click)="cambioEstatusRadio(lista, $event)"
+            ></span>
+            <span
+              *ngIf="listaTablero.includes(lista)"
+              nz-icon
+              nzType="plus-circle"
+              nzTheme="outline"
+              class="icono-agregar-inactivo"
+            ></span>
+            <p
+              *ngIf="!listaTablero.includes(lista)"
+              (click)="cambioEstatusRadio(lista, $event)"
+            >
+              {{ lista.nombreCompleto }}
+            </p>
+            <p
+              *ngIf="listaTablero.includes(lista)"
+              style="color: rgb(207, 207, 207)"
+            >
+              {{ lista.nombreCompleto }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="mostrarTablero" class="filtro-fecha">
+        <p #calendarioSelect (click)="modalCalendario()">
+          Fecha <span nz-icon nzType="calendar" nzTheme="outline"></span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="mostrarTablero" class="tabla-horarios">
+  <nz-calendar
+    *ngIf="mostrarCalendario"
+    [nzFullscreen]="false"
+    (nzSelectChange)="onValueChange($event)"
+  ></nz-calendar>
+  <div class="titulos-tabla">
+    <p
+      nzTooltipTitle="semana anterior"
+      nzTooltipPlacement="right"
+      nz-button
+      nz-tooltip
+      (click)="getNextOrPreviousWeek(-1)"
+    >
+      <img
+        src="../../../../../../../../assets/imagenes/flecha-izquierda.png"
+        alt="flecha-izquierda"
+      />
+    </p>
+    <div class="espacio"></div>
+    <p
+      nzTooltipTitle="semana siguiente"
+      nzTooltipPlacement="left"
+      nz-button
+      nz-tooltip
+      (click)="getNextOrPreviousWeek(1)"
+    >
+      <img
+        src="../../../../../../../../assets/imagenes/flecha-derecha.png"
+        alt="flecha-derecha"
+      />
+    </p>
+  </div>
+  <table>
+    <thead>
+      <th style="padding: 10px; width: 300px">Empleados</th>
+      <th style="padding: 10px; width: 300px" *ngFor="let dia of weekDays">
+        <div class="box-dia">
+          <p>{{ dia.nombre }}</p>
+          <p>{{ dia.fecha }}</p>
+        </div>
+      </th>
+    </thead>
+    <tbody>
+      <tr class="renglon-tabla" *ngFor="let empleado of listaTablero">
+        <td class="recuadro-nombre" style="padding: 10px">
+          <div class="cont-imagen">
+            <img
+              *ngIf="empleado.archivoImagen"
+              class="imagen-ampleado"
+              [src]="
+                'data:image;base64,' + empleado.archivoImagen ||
+                '../../../../../../../assets/imagenes/usuario.png'
+              "
+              alt="empleado"
+            />
+            <img
+              *ngIf="!empleado.archivoImagen"
+              class="imagen-ampleado"
+              src="../../../../../../../assets/imagenes/usuario.png"
+              alt="empleado"
+            />
+          </div>
+          <p>{{ empleado.nombreCompleto }}</p>
+        </td>
+        <td
+          class="recuadro-calendario"
+          style="text-align: center"
+          *ngFor="let dia of weekDays"
+        >
+          <div *ngFor="let reporte of empleado.reportes">
+            <p
+              (click)="AgregarReporte(dia, empleado, reporte)"
+              *ngIf="
+                reporte.fecha === dia.fecha && reporte.total_ganancia !== '0'
+              "
+              class="revisado"
+            >
+              Revisado
+            </p>
+            <p
+              (click)="AgregarReporte(dia, empleado)"
+              *ngIf="
+                reporte.fecha === dia.fecha && reporte.total_ganancia === '0'
+              "
+            >
+              Sin Evaluar
+            </p>
+          </div>
+          <p (click)="AgregarReporte(dia, empleado)" *ngIf="!empleado.reportes">
+            Sin Evaluar
+          </p>
+          <div *ngIf="empleado.reportes">
+            <p
+              (click)="AgregarReporte(dia, empleado)"
+              *ngIf="empleado.reportes.length < 1"
+            >
+              Sin Evaluar
+            </p>
+          </div>
+        </td>
+        <td>
+          <p
+            nzTooltipTitle="Remover de Tablero"
+            nzTooltipPlacement="right"
+            nz-button
+            nz-tooltip
+          >
+            <span
+              (click)="retirar(empleado)"
+              nz-icon
+              nzType="delete"
+              nzTheme="outline"
+            ></span>
+          </p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<nz-result
+  *ngIf="!mostrarTablero"
+  nzStatus="info"
+  nzTitle="Seleccione los filtros"
+  nzSubTitle="Agregue empleados al tablero para gestionar sus reportes."
+>
+</nz-result>
+
+<app-card-reporte
+  *ngIf="mostrarModal"
+  [mostrarModal]="mostrarModal"
+  [fechaSeleccionada]="fechaSeleccionada"
+  [currentDate]="currentDate"
+  (cerrarModal)="cerrarModal($event)"
+  [empleado]="empleado"
+></app-card-reporte>

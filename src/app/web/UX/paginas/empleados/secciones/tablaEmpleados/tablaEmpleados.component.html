@@ -1,0 +1,108 @@
+<section class="empleados">
+  <div class="empleados__cabecera">
+    <div class="empleados__cabecera--descripcion">
+      <div class="empleados__cabecera--descripcion__texto">
+        <p class="stock-p">
+          <span
+            class="icono-text"
+            nz-icon
+            nzType="idcard"
+            nzTheme="outline"
+          ></span>
+          Empleados en la empresa
+        </p>
+        <p class="empleados__cabecera--descripcion__desc">
+          En está sección podrás ver y gestionar a tus empleados.
+        </p>
+      </div>
+      <div
+        *ngIf="permisosSistema(['empleadosInformacionM'])"
+        class="empleados__boton"
+        (click)="agregarEmpleado()"
+      >
+        <button>
+          <span nz-icon nzType="plus" nzTheme="outline"></span>
+          Agregar un nuevo empleado
+        </button>
+      </div>
+    </div>
+    <div class="empleados__descripcion--contenedor">
+      <p class="empleados__descripcion--contenedor__info">Datos informativos</p>
+      <div class="empleados__descripcion">
+        <div class="empleados__descripcion--info-stock">
+          <p class="empleados__descripcion--info-stock--llave">
+            <span nz-icon nzType="thunderbolt" nzTheme="fill"></span>
+            Total de empleados:
+          </p>
+          <p class="empleados__descripcion--info-stock--valor">
+            {{ empleados.length || 0 }}
+          </p>
+        </div>
+        <div class="empleados__descripcion--info-stock">
+          <p class="empleados__descripcion--info-stock--llave">
+            <span nz-icon nzType="thunderbolt" nzTheme="fill"></span>
+            Contratados en ultimos 3 meses:
+          </p>
+          <p class="empleados__descripcion--info-stock--valor">
+            {{ contratados.length }}
+          </p>
+        </div>
+        <div class="empleados__descripcion--info-stock">
+          <p class="empleados__descripcion--info-stock--llave">
+            <span nz-icon nzType="thunderbolt" nzTheme="fill"></span>
+            Despidos en ultimos 3 meses:
+          </p>
+          <p class="empleados__descripcion--info-stock--valor">
+            {{ despidos.length }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-tabla
+  [columnasTabla]="columnasTabla"
+  [filasTabla]="empleados"
+  [filasBusqueda]="empleados"
+  (clickFila)="clickFila($event)"
+></app-tabla>
+
+<app-card-empleados
+  *ngIf="mostrarCardEmpleado"
+  [switchValue]="switchValue"
+  [mostrarCardEmpleado]="mostrarCardEmpleado"
+  [empleado]="empleado"
+  [areas]="areas"
+  [puestos]="puestos"
+  [empleados]="empleados"
+  [sucursales]="sucursales"
+  [catalogoBancos]="catalogoBancos"
+  [empleadosRoles]="empleadosRoles"
+  [roles]="roles"
+  (abirCerrarModal)="abirCerrarModal($event)"
+  (docEmpleado)="docEmpleado($event)"
+  (clickCerrar)="clickCerrarModal($event)"
+  (editarEmpleado)="actualizarEmpleado($event)"
+  (editarImagen)="editarImagen($event)"
+  (idJefeInmediato)="informacionJefeInmediato($event)"
+  (editarEmpleadoLaboral)="actualizarInformacionLaboral($event)"
+  (guardarEmpleadoRoles)="guardarEmpleadoRoles($event)"
+  (eliminarEmpleadoRoles)="eliminarEmpleadoRoles($event)"
+>
+</app-card-empleados>
+
+<app-modal-crear
+  *ngIf="isVisible"
+  [isVisible]="isVisible"
+  [areas]="areas"
+  [puestos]="puestos"
+  [sucursales]="sucursales"
+  [catalogoBancos]="catalogoBancos"
+  [empleados]="empleados"
+  (empleadosRoles)="empleadosRoles = $event"
+  [roles]="roles"
+  (cerrarModal)="cerrarModalCrear()"
+  (informacionEmpleado)="actualizarEmpleado($event)"
+  (altaEmpleado)="altaEmpleado($event)"
+></app-modal-crear>

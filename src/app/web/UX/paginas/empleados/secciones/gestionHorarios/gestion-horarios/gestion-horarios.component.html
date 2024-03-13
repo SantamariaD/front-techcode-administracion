@@ -1,0 +1,322 @@
+<div class="contenido-general">
+  <div class="cabeceras">
+    <div class="titulos">
+      <div class="titulo-principal">
+        <span nz-icon nzType="field-time" nzTheme="outline"></span>
+        <p>Gestion de Horarios</p>
+      </div>
+      <p class="subtitulo">
+        En este apartado podras getionar el horario de tus empleados.
+      </p>
+      <br />
+    </div>
+  </div>
+
+  <nz-tabset [nzTabPosition]="'right'">
+    <nz-tab nzTitle="Jornadas">
+      <div class="lista-horarios">
+        <div
+          class="boton-filtros"
+          *ngIf="permisosSistema(['empleadosHorariosM'])"
+        >
+          <button (click)="abrirModal()">
+            <span nz-icon nzType="plus" nzTheme="outline"></span>Crear Jornada
+          </button>
+        </div>
+        <div class="contenido-lista" *ngFor="let horario of jornadaSinDescanso">
+          <p class="nombre">
+            <span nz-icon nzType="field-time" nzTheme="outline"></span>
+            {{ horario.nombre }}
+          </p>
+          <p class="horario">
+            {{ horario.hora_entrada }} - {{ horario.hora_salida }}
+          </p>
+          <div
+            *ngIf="horario.id !== 1 && permisosSistema(['empleadosHorariosM'])"
+            class="botones"
+          >
+            <p
+              class="botones--editar cursor-pointer"
+              nzTooltipTitle="Editar"
+              nzTooltipPlacement="left"
+              nz-button
+              nz-tooltip
+              (click)="abrirModal(horario)"
+            >
+              <span nz-icon nzType="edit" nzTheme="fill"></span>
+            </p>
+            <p
+              class="botones--borrar cursor-pointer"
+              nzTooltipTitle="Eliminar"
+              nzTooltipPlacement="right"
+              nz-button
+              nz-tooltip
+              (click)="eliminarModal(horario)"
+            >
+              <span nz-icon nzType="delete" nzTheme="fill"></span>
+            </p>
+          </div>
+        </div>
+        <nz-result
+          *ngIf="jornadaSinDescanso.length < 1"
+          nzStatus="info"
+          nzTitle="No hay Jornadas de trabajo agregadas"
+        >
+        </nz-result>
+      </div>
+    </nz-tab>
+    <nz-tab nzTitle="Asignar Horario">
+      <div class="todos-filtros">
+        <div class="listaEmpleados">
+          <select name="areas" #areaSelect (change)="seleccionarArea($event)">
+            <option value="0" disabled selected>Buscar área</option>
+            <option value="todos">Todos</option>
+            <option *ngFor="let lista of areas" [ngValue]="lista">
+              {{ lista.area }}
+            </option>
+          </select>
+        </div>
+        <div class="listaEmpleados">
+          <select
+            name="puestos"
+            #puestoSelect
+            (change)="seleccionarPuesto($event)"
+          >
+            <option value="0" disabled selected>Buscar Puesto</option>
+            <option *ngIf="listaPuestos.length > 0" value="todos">Todos</option>
+            <option *ngFor="let lista of listaPuestos" [ngValue]="lista">
+              {{ lista.puesto }}
+            </option>
+          </select>
+        </div>
+        <div class="select-empleados">
+          <p #listaEmpleadosSelect (click)="agregar()">
+            Empleados <span nz-icon nzType="down" nzTheme="outline"></span>
+          </p>
+          <div *ngIf="mostrarLista" class="lista-seleccion">
+            <div
+              style="background: rgb(206, 206, 206)"
+              *ngIf="listaEmpleados.length === 0"
+            >
+              <h5 style="color: white">Seleccione una área y puesto</h5>
+            </div>
+            <div
+              *ngIf="mostrarSelectTodos"
+              (click)="selcconTodos()"
+              class="renglon"
+            >
+              <span
+                nz-icon
+                nzType="plus-circle"
+                nzTheme="outline"
+                class="icono-agregar-activo"
+              ></span>
+              <p>Agregar todos</p>
+            </div>
+            <div
+              *ngFor="let lista of listaEmpleados"
+              type="text"
+              class="renglon"
+            >
+              <span
+                *ngIf="!listaTablero.includes(lista)"
+                nz-icon
+                nzType="plus-circle"
+                nzTheme="outline"
+                class="icono-agregar-activo"
+                (click)="cambioEstatusRadio(lista, $event)"
+              ></span>
+              <span
+                *ngIf="listaTablero.includes(lista)"
+                nz-icon
+                nzType="plus-circle"
+                nzTheme="outline"
+                class="icono-agregar-inactivo"
+              ></span>
+              <p
+                (click)="cambioEstatusRadio(lista, $event)"
+                *ngIf="!listaTablero.includes(lista)"
+              >
+                {{ lista.nombreCompleto }}
+              </p>
+              <p
+                *ngIf="listaTablero.includes(lista)"
+                style="color: rgb(207, 207, 207)"
+              >
+                {{ lista.nombreCompleto }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          *ngIf="mostrarTablero"
+          class="filtro-fecha"
+          #calendarioSelect
+          (click)="modalCalendario()"
+        >
+          <p>Fecha</p>
+          <span nz-icon nzType="calendar" nzTheme="outline"></span>
+        </div>
+      </div>
+      <nz-calendar
+        *ngIf="mostrarCalendario"
+        [nzFullscreen]="false"
+        (nzSelectChange)="onValueChange($event)"
+      ></nz-calendar>
+      <div *ngIf="listaTablero.length > 0" class="tabla-horarios">
+        <div class="titulos-tabla">
+          <p
+            nzTooltipTitle="semana anterior"
+            nzTooltipPlacement="right"
+            nz-button
+            nz-tooltip
+            (click)="getNextOrPreviousWeek(-1)"
+          >
+            <img
+              src="../../../../../../../../assets/imagenes/flecha-izquierda.png"
+              alt="flecha-izquierda"
+            />
+          </p>
+          <div class="espacio"></div>
+          <p
+            nzTooltipTitle="semana siguiente"
+            nzTooltipPlacement="left"
+            nz-button
+            nz-tooltip
+            (click)="getNextOrPreviousWeek(1)"
+          >
+            <img
+              src="../../../../../../../../assets/imagenes/flecha-derecha.png"
+              alt="flecha-derecha"
+            />
+          </p>
+        </div>
+        <table>
+          <thead>
+            <th style="padding: 10px; width: 300px">Empleados</th>
+            <th style="padding: 5px; width: 300px" *ngFor="let dia of weekDays">
+              <div class="box-dia">
+                <p>{{ dia.nombre }}</p>
+                <p>{{ dia.fecha }}</p>
+              </div>
+            </th>
+          </thead>
+          <tbody>
+            <tr class="renglon-tabla" *ngFor="let empleado of listaTablero">
+              <td class="recuadro-nombre" style="padding: 10px">
+                <div class="cont-imagen">
+                  <img
+                    *ngIf="empleado.archivoImagen"
+                    class="imagen-ampleado"
+                    [src]="
+                      'data:image;base64,' + empleado.archivoImagen ||
+                      '../../../../../../../assets/imagenes/usuario.png'
+                    "
+                    alt="empleado"
+                  />
+                  <img
+                    *ngIf="!empleado.archivoImagen"
+                    class="imagen-ampleado"
+                    src="../../../../../../../assets/imagenes/usuario.png"
+                    alt="empleado"
+                  />
+                </div>
+
+                <p>{{ empleado.nombreCompleto }}</p>
+              </td>
+              <td
+                class="recuadro-calendario"
+                style="text-align: center"
+                *ngFor="let dia of weekDays"
+              >
+                <div *ngFor="let horario of empleado.horaro">
+                  <div
+                    *ngIf="
+                      horario.fecha === dia.fecha &&
+                      horario.hora_entrada !== '0'
+                    "
+                    (click)="AgregarHorario(dia, empleado, horario)"
+                    class="revisado"
+                  >
+                    <p>{{ horario.nombre }}</p>
+                    <p>{{ horario.hora_entrada }}-{{ horario.hora_salida }}</p>
+                  </div>
+                  <p
+                    (click)="AgregarHorario(dia, empleado, horario)"
+                    *ngIf="
+                      horario.fecha === dia.fecha &&
+                      horario.hora_entrada === '0'
+                    "
+                  >
+                    {{ horario.nombre }}
+                  </p>
+                  <p
+                    (click)="AgregarHorario(dia, empleado)"
+                    *ngIf="!horario.fecha"
+                  >
+                    Agregar
+                  </p>
+                </div>
+                <p
+                  (click)="AgregarHorario(dia, empleado)"
+                  *ngIf="!empleado.horaro"
+                >
+                  Agregar
+                </p>
+                <div *ngIf="empleado.horaro">
+                  <p
+                    (click)="AgregarHorario(dia, empleado)"
+                    *ngIf="empleado.horaro.length < 1"
+                  >
+                    Agregar
+                  </p>
+                </div>
+              </td>
+              <td>
+                <p
+                  nzTooltipTitle="Remover de Tablero"
+                  nzTooltipPlacement="right"
+                  nz-button
+                  nz-tooltip
+                >
+                  <span
+                    (click)="retirar(empleado)"
+                    nz-icon
+                    nzType="delete"
+                    nzTheme="outline"
+                  ></span>
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <nz-result
+        *ngIf="listaTablero.length < 1"
+        nzStatus="info"
+        nzTitle="Seleccione los filtros"
+        nzSubTitle="Agregue empleados al tablero para asignarles un horario."
+      >
+      </nz-result>
+    </nz-tab>
+  </nz-tabset>
+</div>
+
+<app-crear-horario
+  *ngIf="modalCrearHorario"
+  [horario]="horarioGeneralSelect"
+  (cerrarCrearHorario)="cerrarCrearHorario($event)"
+></app-crear-horario>
+
+<app-modal-agregar
+  *ngIf="mostrarModal"
+  [mostrarModal]="mostrarModal"
+  [fechaSeleccionada]="fechaSeleccionada"
+  [inicioSemana]="weekDays[0].fecha"
+  [currentDate]="currentDate"
+  (cerrarModal)="cerrarModal($event)"
+  [empleado]="empleado"
+  [horariosGenericos]="jornadas"
+  [jornadaSinDescanso]="jornadaSinDescanso"
+  [horarioSeleccionado]="horarioSeleccionado"
+></app-modal-agregar>

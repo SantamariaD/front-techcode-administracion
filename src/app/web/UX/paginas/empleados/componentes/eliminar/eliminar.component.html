@@ -1,0 +1,25 @@
+<section class="eliminar">
+  <h2 class="eliminar__titulo">
+    <span
+      class="icono-info"
+      nz-icon
+      nzType="exclamation-circle"
+      nzTheme="outline"
+    ></span
+    >{{tituloEliminar}} 
+    <strong
+      >{{ empleado.nombres }} {{ empleado.apellido_paterno }}
+      {{ empleado.apellido_materno }}</strong
+    >
+    ?
+  </h2>
+  <div class="eliminar__contenido">
+    <button
+      class="eliminar__contenido--boton"
+      nz-button
+      (click)="clickEliminar()"
+    >
+      Aceptar
+    </button>
+  </div>
+</section>

@@ -1,0 +1,90 @@
+<div class="contenedor-principal">
+  <div class="contenido">
+    <div class="cerrar" (click)="cerrarModal()">&times;</div>
+    <div class="imagen">
+      <img class="icono" src="/assets/imagenes/reloj.png" alt="" />
+    </div>
+    <div *ngIf="verificado" class="registro-asistencia">
+      <div class="titulo">
+        <span
+          class="icono-info"
+          nz-icon
+          nzType="info-circle"
+          nzTheme="outline"
+        ></span>
+        {{ titulo }}
+      </div>
+      <div *ngIf="!registro.hora_salida" class="reloj">
+        <h1 class="titulo-checador">{{ diaActual }} {{ fechaActual }}</h1>
+        <h3>{{ horaActual }}</h3>
+      </div>
+      <div *ngIf="registro.hora_salida" class="reloj">
+        <h1 class="titulo-checador">Registro de Salida</h1>
+        <h3>{{ registro.hora_salida }}</h3>
+      </div>
+      <div class="modal-footer">
+        <div *ngIf="!registro.hora_salida" class="modal-footer__boton">
+          <button nz-button nzType="primary" (click)="enviar()">
+            Registrar
+          </button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!verificado" class="registro-credenciales">
+      <div class="titulo">
+        <span
+          class="icono-info"
+          nz-icon
+          nzType="info-circle"
+          nzTheme="outline"
+        ></span>
+        Ingresa tus credenciales
+      </div>
+      <form [formGroup]="asistenciaForm" class="formulario">
+        <div class="form-usuario">
+          <span nz-icon nzType="user" nzTheme="outline"></span>
+          <input
+          autocomplete="nope"
+          type="search"
+          formControlName="nombre"
+          placeholder="Busca tu nombre"
+          (input)="bucarEmpleado()"
+          (blur)="mostrarOpcionesEmpleadosAutocomplet(false)"
+          (focus)="mostrarOpcionesEmpleadosAutocomplet(true)"
+        />
+        </div>
+        <div
+          *ngIf="mostrarOpcionesEmpleados"
+          class="buscador__contenedor--opciones"
+        >
+          <option
+            *ngFor="let empleados of listaBusqueda"
+            (click)="selectOpcion(empleados)"
+          >
+            {{ empleados.nombres }} {{ empleados.apellido_paterno }}
+            {{ empleados.apellido_materno }}
+          </option>
+        </div>
+        <div class="form-usuario">
+          <span nz-icon nzType="lock" nzTheme="outline"></span>
+          <input
+            placeholder="Ingresa tu password"
+            autocomplete="new-password"
+            (input)="resetearModalError()"
+            type="password"
+            formControlName="password"
+          />
+        </div>
+        <p *ngIf="mensajeVerificado" class="error-acceso">Credenciales incorrectas, intenta de nuevo.</p>
+      </form>
+      <div class="modal-footer">
+        <div *ngIf="!registro.hora_salida" class="modal-footer__boton">
+          <button [disabled]="!asistenciaForm.valid"
+          [ngClass]="{ desactivado: !asistenciaForm.valid }" nz-button nzType="primary" (click)="verificar()">
+            Verificar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

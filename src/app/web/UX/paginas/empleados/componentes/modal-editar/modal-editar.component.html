@@ -1,0 +1,575 @@
+<section class="editar">
+  <aside class="editar--contenido" [formGroup]="datosBasicosForm">
+    <div *ngIf="cardEditar" class="editar--contenido__card">
+      <figure class="editar--contenido__card__imagen">
+        <img
+          *ngIf="imagenBase64"
+          [src]="
+            'data:image;base64,' + imagenBase64 ||
+            '../../../../../../../assets/imagenes/usuario.png'
+          "
+          alt="empleado"
+        />
+        <img *ngIf="urlImagen" [src]="urlImagen" />
+        <img
+          *ngIf="!imagenBase64 && !urlImagen"
+          src="../../../../../../../assets/imagenes/usuario.png"
+          alt="empleado"
+        />
+      </figure>
+      <div class="editar--contenido__card__icono" (click)="openFileInput()">
+        <span nz-icon nzType="camera" nzTheme="fill"></span>
+        Cambiar Fotografía
+      </div>
+      <div class="editar--contenido__card__nombre">
+        <input
+          formControlName="nombres"
+          placeholder="Nombres"
+          type="text"
+          appAlfabetico
+        />
+      </div>
+      <div class="editar--contenido__card__nombre">
+        <input
+          formControlName="apellido_paterno"
+          placeholder="Apellido Paterno"
+          type="text"
+          appAlfabetico
+        />
+      </div>
+      <div class="editar--contenido__card__nombre">
+        <input
+          formControlName="apellido_materno"
+          placeholder="Apellido Materno"
+          type="text"
+          appAlfabetico
+        />
+      </div>
+      <div class="editar--contenido__card__nombre">
+        <input
+          placeholder="Descripcion del Empleado"
+          formControlName="descripcion"
+          type="text"
+          appFormateoDescripciones
+        />
+      </div>
+      <div class="editar--contenido__card__nombre">
+        <input
+          formControlName="telefono"
+          type="text"
+          placeholder="Teléfono"
+          maxlength="10"
+        />
+      </div>
+      <div class="editar--contenido__card__nombre">
+        <input
+          formControlName="correo_electronico"
+          placeholder="Correo"
+          type="text"
+        />
+      </div>
+      <div class="custom-file-input">
+        <input
+          type="file"
+          (change)="archivoImagen($event)"
+          id="imagenEmpleado"
+          accept="image/jpeg, image/png image/jpg image/gif"
+        />
+      </div>
+    </div>
+    <div *ngIf="!cardEditar" class="editar--contenido__card2">
+      <figure class="editar--contenido__card2__imagen">
+        <img
+          *ngIf="empleado.archivoImagen"
+          class="imagen-ampleado"
+          [src]="
+            'data:image;base64,' + empleado.archivoImagen ||
+            '../../../../../../../assets/imagenes/usuario.png'
+          "
+          alt="empleado"
+        />
+        <img
+          *ngIf="!empleado.archivoImagen"
+          class="imagen-ampleado"
+          src="../../../../../../../assets/imagenes/usuario.png"
+          alt="empleado"
+        />
+      </figure>
+      <p class="editar--contenido__card2__nombre">
+        {{ empleado.nombres }}
+      </p>
+      <p class="editar--contenido__card2__nombre">
+        {{ empleado.apellido_paterno }} {{ empleado.apellido_materno }}
+      </p>
+      <p class="editar--contenido__card2__descripcion">
+        {{ empleado.descripcion }}
+      </p>
+      <div class="datos">
+        <div class="editar--contenido__card2__llave">
+          <span class="editar--contenido__card2__dato">
+            {{ empleado.correo_electronico }}
+          </span>
+        </div>
+        <div class="editar--contenido__card2__llave datos">
+          <span class="editar--contenido__card2__dato">
+            <span nz-icon nzType="phone" nzTheme="fill"></span>
+            {{ empleado.telefono }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <main class="editar--datos">
+    <nz-tabset>
+      <nz-tab
+        nzTitle="Información General"
+        [formGroup]="datosBasicosForm"
+        (nzClick)="this.cardEditar = true"
+      >
+        <h3 class="editar--datos--titulo">Datos Básicos</h3>
+        <div class="editar--datos--seccion">
+          <div class="editar--datos--seccion__info">
+            <p class="editar--datos--seccion__info--llave">
+              Fecha de Nacimiento
+            </p>
+            <div class="editar--datos--seccion__info--dato">
+              <div class="concatenated-input">
+                <input
+                  maxlength="2"
+                  type="text"
+                  placeholder="Día"
+                  appNumerosPositivos
+                  class="sub-input"
+                  formControlName="input1"
+                />
+                <input
+                  maxlength="2"
+                  type="text"
+                  appNumerosPositivos
+                  class="sub-input"
+                  formControlName="input2"
+                  placeholder="Mes"
+                />
+                <input
+                  maxlength="4"
+                  type="text"
+                  placeholder="Año"
+                  appNumerosPositivos
+                  class="sub-input"
+                  formControlName="input3"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="editar--datos--seccion__info">
+            <p class="editar--datos--seccion__info--llave">CURP</p>
+            <p class="editar--datos--seccion__info--dato">
+              <input
+                maxlength="18"
+                formControlName="curp"
+                placeholder="CURP"
+                type="text"
+                appCurp
+              />
+            </p>
+          </div>
+          <div class="editar--datos--seccion__info">
+            <p class="editar--datos--seccion__info--llave">RFC</p>
+            <p class="editar--datos--seccion__info--dato">
+              <input
+                maxlength="13"
+                formControlName="rfc"
+                placeholder="RFC"
+                type="text"
+                appRfc
+              />
+            </p>
+          </div>
+          <div class="editar--datos--seccion__info">
+            <p class="editar--datos--seccion__info--llave">
+              Número de Seguro Social
+            </p>
+            <p class="editar--datos--seccion__info--dato">
+              <input
+                maxlength="11"
+                formControlName="nss"
+                type="text"
+                appNumerosPositivos
+                placeholder="Número de Seguro Social"
+              />
+            </p>
+          </div>
+          <div class="editar--datos--seccion__info">
+            <p class="editar--datos--seccion__info--llave">Género</p>
+            <p class="editar--datos--seccion__info--dato">
+              <select
+                placeholder="Selecciona un género"
+                formControlName="genero"
+                id="'genero'"
+              >
+                <option label="Hombre" value="hombre"></option>
+                <option label="Mujer" value="mujer"></option>
+                <option label="Otro" value="Otro"></option>
+              </select>
+            </p>
+          </div>
+          <div class="editar--datos--seccion__info">
+            <p class="editar--datos--seccion__info--llave">Estado Civil</p>
+            <p class="editar--datos--seccion__info--dato">
+              <select
+                placeholder="Selecciona un género"
+                formControlName="estado_civil"
+              >
+                <option label="Soltera/o" value="Soltera/o"></option>
+                <option label="Casada/o" value="Casada/o"></option>
+                <option label="Viuda/o" value="Viuda/o"></option>
+                <option label="Divorciada/o" value="Divorciada/o"></option>
+                <option label="Separada/o" value="Separada/o"></option>
+              </select>
+            </p>
+          </div>
+        </div>
+        <h3 class="editar--datos--titulo m-t-10">Domicilio</h3>
+        <div class="editar--datos--seccion">
+          <div class="editar--datos--seccion__info">
+            <p class="editar--datos--seccion__info--llave">Calle</p>
+            <p class="editar--datos--seccion__info--dato">
+              <input formControlName="calle" placeholder="Calle" type="text" />
+            </p>
+          </div>
+          <div class="editar--datos--seccion__info">
+            <p class="editar--datos--seccion__info--llave">Número Exterior</p>
+            <p class="editar--datos--seccion__info--dato">
+              <input
+                formControlName="numeroExt"
+                placeholder="Número Exterior"
+                type="text"
+                appFormateoAlfanumerico
+              />
+            </p>
+          </div>
+          <div class="editar--datos--seccion__info">
+            <p class="editar--datos--seccion__info--llave">Número Interior</p>
+            <p class="editar--datos--seccion__info--dato">
+              <input
+                formControlName="numeroInt"
+                type="text"
+                placeholder="Número Interior"
+                appFormateoAlfanumerico
+              />
+            </p>
+          </div>
+          <div class="editar--datos--seccion__info">
+            <p class="editar--datos--seccion__info--llave">Colonia</p>
+            <p class="editar--datos--seccion__info--dato">
+              <input
+                formControlName="colonia"
+                placeholder="Colonia"
+                type="text"
+              />
+            </p>
+          </div>
+          <div class="editar--datos--seccion__info">
+            <p class="editar--datos--seccion__info--llave">Cóigo Postal</p>
+            <p class="editar--datos--seccion__info--dato">
+              <input
+                formControlName="codigoPostal"
+                placeholder="Código Postal"
+                type="text"
+              />
+            </p>
+          </div>
+          <div class="editar--datos--seccion__info">
+            <p class="editar--datos--seccion__info--llave">Delegación</p>
+            <p class="editar--datos--seccion__info--dato">
+              <input
+                formControlName="delegacion"
+                placeholder="Delegación"
+                type="text"
+              />
+            </p>
+          </div>
+          <div class="editar--datos--seccion__info">
+            <p class="editar--datos--seccion__info--llave">Ciudad</p>
+            <p class="editar--datos--seccion__info--dato">
+              <input
+                formControlName="ciudad"
+                placeholder="Ciudad"
+                type="text"
+              />
+            </p>
+          </div>
+          <div class="editar--datos--seccion__info">
+            <p class="editar--datos--seccion__info--llave">Referencias</p>
+            <p class="editar--datos--seccion__info--dato">
+              <input
+                formControlName="referencias"
+                placeholder="Referencias"
+                type="text"
+              />
+            </p>
+          </div>
+        </div>
+        <div class="editar--datos--boton">
+          <button
+            (click)="actualizarEmpleado()"
+            [disabled]="!datosBasicosForm.dirty"
+            [ngClass]="{ desactivado: !datosBasicosForm.dirty }"
+          >
+            Actualizar Información General
+          </button>
+        </div>
+      </nz-tab>
+      <nz-tab
+        nzTitle="Información Laboral"
+        [formGroup]="datosLaboralesForm"
+        (nzClick)="this.cardEditar = false"
+      >
+        <div class="editar--datos--seccion">
+          <div class="editar--datos--seccion__info m-b">
+            <p class="editar--datos--seccion__info--llave">
+              Número de Empleado
+            </p>
+            <p class="editar--datos--seccion__info--dato">
+              <input
+                formControlName="idEmpleado"
+                placeholder="Número de Empleado"
+                type="text"
+              />
+            </p>
+          </div>
+          <div class="editar--datos--seccion__info m-b">
+            <p class="editar--datos--seccion__info--llave">Fecha de Ingreso</p>
+            <p class="editar--datos--seccion__info--dato">
+              <input
+                formControlName="fechaAlta"
+                placeholder="Fecha de Ingreso"
+                type="text"
+              />
+            </p>
+          </div>
+          <div class="editar--datos--seccion__info m-b">
+            <p class="editar--datos--seccion__info--llave">Tipo de Contrato</p>
+            <p class="editar--datos--seccion__info--dato">
+              <select
+                placeholder="Tipo de Contrato"
+                formControlName="tipoContrato"
+              >
+                <option
+                  label="Contrato Indefinido"
+                  value="Contrato Indefinido"
+                ></option>
+                <option
+                  label="Contrato Temporal"
+                  value="Contrato Temporal"
+                ></option>
+                <option label="Por Obra" value="Por Evento"></option>
+              </select>
+            </p>
+          </div>
+          <div class="editar--datos--seccion__info m-b">
+            <p class="editar--datos--seccion__info--llave">Salario</p>
+            <p class="editar--datos--seccion__info--dato">
+              <input
+                formControlName="salario"
+                placeholder="Salario"
+                type="text"
+                appFormateoMoneda
+              />
+            </p>
+          </div>
+          <div class="editar--datos--seccion__info m-b">
+            <p class="editar--datos--seccion__info--llave">
+              Clabe Interbancaria
+            </p>
+            <p class="editar--datos--seccion__info--dato">
+              <input
+                formControlName="clabeInterbancaria"
+                placeholder="Clabe Interbancaria"
+                type="text"
+              />
+            </p>
+          </div>
+          <div class="editar--datos--seccion__info m-b">
+            <p class="editar--datos--seccion__info--llave">Banco</p>
+            <p class="editar--datos--seccion__info--dato">
+              <select formControlName="idCatalogoBanco">
+                <option
+                  *ngFor="let catalogo of catalogoBancos"
+                  [label]="catalogo.nombre"
+                  [value]="catalogo.id"
+                ></option>
+              </select>
+            </p>
+          </div>
+          <div class="editar--datos--seccion__info m-b">
+            <p class="editar--datos--seccion__info--llave">Área</p>
+            <p class="editar--datos--seccion__info--dato">
+              <select
+                placeholder="Área"
+                formControlName="area_id"
+                (ngModelChange)="areaSeleccionada($event)"
+              >
+                <option
+                  *ngFor="let list of areas"
+                  [label]="list.area"
+                  [value]="list.id"
+                ></option>
+              </select>
+            </p>
+          </div>
+          <div class="editar--datos--seccion__info m-b">
+            <p class="editar--datos--seccion__info--llave">Puesto</p>
+            <p class="editar--datos--seccion__info--dato">
+              <select placeholder="Puesto" formControlName="puesto_id">
+                <option
+                  *ngFor="let list of puestosConArea"
+                  [label]="list.puesto"
+                  [value]="list.id"
+                ></option>
+              </select>
+            </p>
+          </div>
+          <div class="editar--datos--seccion__info m-b">
+            <p class="editar--datos--seccion__info--llave">Sucursal</p>
+            <p class="editar--datos--seccion__info--dato">
+              <select
+                placeholder="Selecciona una sucursal"
+                formControlName="sucursal_id"
+                id="'rol'"
+              >
+                <option
+                  *ngFor="let sucursal of sucursales"
+                  [value]="sucursal.id"
+                >
+                  {{ sucursal.nombreSucursal }}
+                </option>
+              </select>
+            </p>
+          </div>
+          <div class="editar--datos--seccion__info m-b">
+            <p class="editar--datos--seccion__info--llave">
+              Horas Laborales al Día
+            </p>
+            <p class="editar--datos--seccion__info--dato">
+              <input
+                formControlName="horas_laborales"
+                placeholder="Horas Laborales al Día"
+                type="text"
+                appNumerosPositivos
+              />
+            </p>
+          </div>
+          <div class="editar--datos--seccion__info m-b">
+            <p class="editar--datos--seccion__info--llave">Periodo de Pago</p>
+            <p class="editar--datos--seccion__info--dato">
+              <select formControlName="periodoPago">
+                <option value="Mensual">Mensual</option>
+                <option value="Quincenal">Quincenal</option>
+                <option value="Semanal">Semanal</option>
+                <option value="Díario">Díario</option>
+                <option value="Por hora">Por hora</option>
+              </select>
+            </p>
+          </div>
+          <div class="editar--datos--seccion__info m-b">
+            <p class="editar--datos--seccion__info--llave">Jefe Inmediato</p>
+            <p class="editar--datos--seccion__info--dato">
+              <select
+                placeholder="Jefe Inmediato"
+                formControlName="idJefeInmediato"
+              >
+                <option
+                  *ngFor="let empleado of empleados"
+                  [label]="
+                    empleado.nombres +
+                    empleado.apellido_paterno +
+                    empleado.apellido_materno
+                  "
+                  [value]="empleado.id"
+                ></option>
+              </select>
+            </p>
+          </div>
+        </div>
+        <div class="editar--datos--boton">
+          <button
+            (click)="actualizarEmpleadoLaborales()"
+            [disabled]="!datosLaboralesForm.dirty"
+            [ngClass]="{ desactivado: !datosLaboralesForm.dirty }"
+          >
+            Actualizar Información Laboral
+          </button>
+        </div>
+      </nz-tab>
+      <nz-tab nzTitle="Roles" (nzClick)="this.cardEditar = false">
+        <div class="editar--datos--roles" cdkDropListGroup>
+          <div class="editar--datos--roles__contenedor">
+            <h3 class="editar--datos--roles__contenedor--titulo">
+              <span nz-icon nzType="rotate-right" nzTheme="outline"> </span>
+              Roles Asignados al Empleado
+            </h3>
+            <div
+              cdkDropList
+              [cdkDropListData]="rolesAsignados"
+              class="example-list menu-sidebar"
+              (cdkDropListDropped)="entradaRolesAsignado($event)"
+            >
+              <div
+                class="example-box"
+                *ngFor="let rol of rolesAsignados"
+                cdkDrag
+              >
+                <div
+                  class="example-custom-placeholder"
+                  *cdkDragPlaceholder
+                ></div>
+                <span nz-icon nzType="crown" nzTheme="fill"></span>
+                {{ rol.nombre }}
+              </div>
+            </div>
+          </div>
+          <div class="editar--datos--roles__contenedor">
+            <h3 class="editar--datos--roles__contenedor--titulo">
+              <span nz-icon nzType="rotate-left" nzTheme="outline"> </span>
+              Roles sin Asignar al Empleado
+            </h3>
+            <div
+              cdkDropList
+              [cdkDropListData]="rolesSinAsignar"
+              class="example-list menu-sidebar"
+              (cdkDropListDropped)="entradaRolesNoAsignado($event)"
+            >
+              <div
+                class="example-box"
+                *ngFor="let rol of rolesSinAsignar"
+                cdkDrag
+              >
+                <div
+                  class="example-custom-placeholder"
+                  *cdkDragPlaceholder
+                ></div>
+                <span nz-icon nzType="crown" nzTheme="fill"></span>
+                {{ rol.nombre }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="editar--datos--roles--boton"
+          [ngClass]="{ desactivado: !cambioEmpleadoRoles() }"
+        >
+          <button
+            [disabled]="!cambioEmpleadoRoles()"
+            (click)="actualizarRoles()"
+          >
+            Actualizar Roles
+          </button>
+        </div>
+      </nz-tab>
+    </nz-tabset>
+  </main>
+</section>
+<!-- <div class="enviar">
+  <button (click)="actualizarEmpleado()">Actualizar Empleado</button>
+</div> -->

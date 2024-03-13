@@ -12,9 +12,10 @@ export const routes: Routes = [
   },
   {
     path: 'empleados',
-    loadComponent: () =>
-      import('./web/UX/paginas/empleados/empleados.component').then(
-        (m) => m.EmpleadosComponent
+    loadChildren: () =>
+      import('./web/UX/paginas/empleados/empleados.module').then(
+        (m) => m.EmpleadosModule
       ),
+    //canActivate: [RutasGuard],
   },
 ];

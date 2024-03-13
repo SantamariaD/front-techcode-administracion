@@ -1,0 +1,237 @@
+<div *ngIf="mostrarModal" class="modal">
+  <div class="contenido">
+    <div class="titiloModal">
+      <div class="titulo-modal">
+        <h1 style="text-align: center; padding: 2px 5px 0 20px">
+          Reporte del Empleado
+        </h1>
+        <p style="text-align: center; font-size: 20px; padding-bottom: 2px">
+          {{ fechaSeleccionada.fecha }}
+        </p>
+      </div>
+      <div class="cerrar" (click)="cerrar()">&times;</div>
+    </div>
+
+    <div class="contenido-central">
+      <div class="contenedorTabSuperior">
+        <div class="tabla-registros">
+          <div class="titulo">
+            <h2>Registros</h2>
+          </div>
+          <table>
+            <thead>
+              <th>Registro</th>
+              <th>Entrada</th>
+              <th>Salida</th>
+              <th>Tiempo</th>
+            </thead>
+            <tbody>
+              <tr
+                *ngIf="horario.hora_entrada && horario.hora_entrada !== '0:00'"
+              >
+                <td class="nombreFila">Horario</td>
+                <td>
+                  <p>{{ horario.hora_entrada }}</p>
+                </td>
+                <td>
+                  <p>
+                    {{ horario.hora_salida }}
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    {{ horario.horas }}
+                  </p>
+                </td>
+              </tr>
+              <tr style="text-align: center" *ngIf="!horario.hora_entrada">
+                No hay registros de horario.
+              </tr>
+              <tr
+                style="text-align: center"
+                *ngIf="horario.hora_entrada === '0:00'"
+              >
+                Dia de descanso.
+              </tr>
+              <tr *ngIf="registroAsistencia.hora_entrada">
+                <td class="nombreFila" *ngIf="registroAsistencia.hora_entrada">
+                  Asistencia
+                </td>
+                <td>
+                  <p>
+                    {{ registroAsistencia.hora_entrada }}
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    {{ registroAsistencia.hora_salida }}
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    {{ registroAsistencia.horas }}
+                  </p>
+                </td>
+              </tr>
+              <tr
+                style="text-align: center"
+                *ngIf="!registroAsistencia.hora_entrada"
+              >
+                <p>No hay registros de asistencia.</p>
+              </tr>
+              <table></table>
+            </tbody>
+          </table>
+        </div>
+        <div [formGroup]="nominaForm" class="comentarios">
+          <div class="titulo">
+            <h2>Comentarios</h2>
+          </div>
+          <textarea
+            placeholder="Escribe los comentarios que justifiquen el ajuste de sueldos del empleado."
+            cols="30"
+            rows="10"
+            formControlName="comentarios"
+          ></textarea>
+        </div>
+      </div>
+
+      <div [formGroup]="nominaForm" class="contenido-tablas" nz-row>
+        <div class="tablas" nz-col nzSpan="10">
+          <h2>Ganancias</h2>
+          <table>
+            <thead>
+              <th class="nombreFila" style="width: auto; text-align: left">
+                Concepto
+              </th>
+              <th class="nombreFila" style="width: auto; text-align: left">
+                Monto
+              </th>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="nombreFila" style="border-bottom: 1px solid black">
+                  Sueldo Diario
+                </td>
+                <td style="border-bottom: 1px solid black">{{ sueldo | formateoMoneda }}</td>
+              </tr>
+              <tr>
+                <td class="nombreFila" style="width: 250px">Horas Extras</td>
+                <td style="border-bottom: 1px solid black">
+                  <input
+                    type="text"
+                    appFormateoMoneda
+                    (input)="cambiaValor()"
+                    formControlName="hora_extra"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td class="nombreFila">Comisiones</td>
+                <td style="border-bottom: 1px solid black">
+                  <input
+                    type="text"
+                    appFormateoMoneda
+                    (input)="cambiaValor()"
+                    formControlName="comisiones"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td class="nombreFila">Otros</td>
+                <td style="border-bottom: 1px solid black">
+                  <input
+                    type="text"
+                    appFormateoMoneda
+                    (input)="cambiaValor()"
+                    formControlName="otros_ganancia"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td
+                  class="nombreFila"
+                  style="border-bottom: 1px solid black; width: 250px"
+                >
+                  Totales
+                </td>
+                <td class="totales">{{ totalGanancias | formateoMoneda }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="tablas-descuentos" nz-col nzSpan="10">
+          <h2>Descuentos</h2>
+          <table>
+            <thead>
+              <th class="nombreFila" style="width: auto; text-align: left">
+                Concepto
+              </th>
+              <th class="nombreFila" style="width: auto; text-align: left">
+                Monto
+              </th>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="nombreFila">Horas Descontadas</td>
+                <td style="border-bottom: 1px solid black">
+                  <input
+                    type="text"
+                    appFormateoMoneda
+                    (input)="cambiaValorDescuentos()"
+                    formControlName="hora_descontada"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td class="nombreFila">Adelantos</td>
+                <td style="border-bottom: 1px solid black">
+                  <input
+                    type="text"
+                    appFormateoMoneda
+                    (input)="cambiaValorDescuentos()"
+                    formControlName="adelantos"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td class="nombreFila">otros</td>
+                <td style="border-bottom: 1px solid black">
+                  <input
+                    style="border-bottom: 1px solid black"
+                    type="text"
+                    appFormateoMoneda
+                    (input)="cambiaValorDescuentos()"
+                    formControlName="otros_descuento"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td
+                  class="nombreFila"
+                  style="border-bottom: 1px solid black; width: 250px"
+                >
+                  Totales
+                </td>
+                <td>{{ totalDescuentos | formateoMoneda }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="total">
+        <p class="nombreFila">Salario Neto : {{ total | formateoMoneda }}</p>
+      </div>
+    </div>
+    <div class="footer">
+      <div *ngIf="!empleado.reporte" class="botn">
+        <button (click)="guardarNomina()">Guardar</button>
+      </div>
+      <div *ngIf="empleado.reporte" class="botn">
+        <button (click)="actualizarrNomina()">Actualizar</button>
+      </div>
+    </div>
+  </div>
+</div>

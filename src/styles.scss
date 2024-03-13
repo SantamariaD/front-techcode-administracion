@@ -25,17 +25,143 @@ div {
   margin: 0;
 }
 
+.ant-spin-spinning {
+  margin-top: 50px;
+}
+
+.ant-spin-lg .ant-spin-dot i {
+  width: 54px;
+  height: 54px;
+  margin: 20px;
+}
+
+.ant-spin-text {
+  margin-top: 60px;
+  font-size: 20px;
+}
+
+.ant-tabs-nav-wrap {
+  justify-content: center;
+}
+
+.ant-tabs-tab {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.ant-drawer-body {
+  padding: 0px !important;
+}
+
+.limitar {
+  max-width: 100px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.icono-flotante {
+  color: $color-brand-primary;
+  position: fixed;
+  top: 90%;
+  left: 95%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  font-size: 40px;
+  cursor: pointer;
+}
+
+.icono-flotante-2 {
+  color: $color-brand-primary;
+  position: fixed;
+  top: 83%;
+  left: 95%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  font-size: 40px;
+  cursor: pointer;
+}
+
+.input {
+  border: none;
+  border-bottom: 1px solid rgb(200, 200, 200);
+  height: 35px;
+  background: transparent;
+  font-size: 16px;
+  color: rgb(56, 56, 56);
+  font-weight: 600;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    color: $primary;
+    border-bottom: 1px solid $primary;
+    ::placeholder {
+      color: $primary;
+      transition: 0.2s;
+    }
+  }
+}
+
+.select {
+  border: none;
+  width: 100%;
+  border-bottom: 1px solid rgb(200, 200, 200);
+  height: 35px;
+  background: transparent;
+  color: rgb(56, 56, 56);
+  &:focus {
+    outline: none;
+  }
+}
+
+.apexcharts-menu-icon,
+.apexcharts-reset-icon,
+.apexcharts-zoom-icon {
+  transform: scale(1.3) !important;
+}
+
+.apexcharts-legend-text {
+  font-size: 16px !important;
+  @media (min-width: 1410px) {
+    font-size: 20px !important;
+  }
+}
+
+nz-date-picker:focus {
+  outline: none !important;
+}
+
+#bajaEmpleado .ant-switch-checked {
+  background: #ca0727 !important;
+}
+
+.ant-table-thead {
+  border: 2px solid $color-brand-primary;
+}
+
+.ant-table-thead > tr > th {
+  position: relative;
+  color: $color-brand-primary;
+  font-weight: 500;
+  text-align: left;
+  background: #f3f3f3;
+  transition: background 0.3s ease;
+}
+
+select,
+input {
+  background: none;
+}
+
+.ant-table-thead > tr > th {
+  background: rgb(221, 221, 221);
+}
+
 .menu-sidebar {
-  scrollbar-color: #00315f transparent !important;
+  scrollbar-color: #2e2e2e transparent !important;
   scrollbar-width: thin;
-}
-
-.menu-sidebar::-webkit-scrollbar-track {
-  background: #7cc0ff;
-}
-
-.menu-sidebar::-webkit-scrollbar-thumb {
-  background: #003e78;
+  border-radius: 5px;
 }
 
 .menu-sidebar::-webkit-scrollbar-thumb:hover {

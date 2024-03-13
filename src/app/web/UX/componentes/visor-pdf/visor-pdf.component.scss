@@ -1,0 +1,103 @@
+@import "../../../../../styles.scss";
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  &__contenido {
+    width: 700px;
+    padding: 10px 35px 10px 20px;
+    background-color: #808080;
+    border-radius: 5px;
+    position: relative;
+    &--cerrar {
+      color: white;
+      position: absolute;
+      top: -2px;
+      right: 10px;
+      font-size: 17px;
+      height: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      &:hover {
+        color: rgb(174, 174, 174);
+      }
+    }
+    &--nombre {
+      color: white;
+      position: absolute;
+      top: 3px;
+      left: 10px;
+      font-size: 14px;
+      height: 20px;
+      cursor: pointer;
+    }
+    &--footer {
+      background: #393939;
+      font-size: 17px;
+      margin: -20px -35px 0px -20px;
+      padding-top: 1px;
+      padding-bottom: 7px;
+      color: white;
+      -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75);
+      box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75);
+      &__contenedor-iconos {
+        width: 25%;
+        margin: 10px auto 0px auto;
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        &--icono {
+          color: rgb(255, 255, 255);
+          margin: 0px 5px;
+          cursor: pointer;
+          &:hover {
+            color: rgb(174, 174, 174);
+          }
+        }
+      }
+    }
+    &--pdf {
+      min-height: 300px;
+    }
+    &--pdf__visor {
+      width: 100%;
+      height: 100%;
+    }
+    &--pdf--spin {
+      &--icono {
+        font-size: 80px;
+        width: 100px;
+        height: 100px;
+        margin: 100px auto 0px auto;
+      }
+      &--mensaje {
+        font-size: 26px;
+        text-align: center;
+        margin-top: 10px;
+        font-weight: 600;
+      }
+      color: white;
+    }
+  }
+}
+
+.divisor {
+  width: 3px;
+  margin: 0px 5px 0px 8px;
+}
+
+.porcentaje {
+  background: rgb(36, 36, 36);
+  padding: 0px 10px;
+  width: 80px;
+  font-size: 16px !important;
+  color: white;
+}

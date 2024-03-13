@@ -1,0 +1,44 @@
+<div class="modal">
+  <div class="contenido">
+    <div class="cerrar" (click)="cerrarModalEditarDocumento.emit()">
+      &times;
+    </div>
+    <div class="titulo">
+      <h3 class="titulo--principal">
+        <span nz-icon nzType="file-done" nzTheme="outline"></span>
+        Editar Plantilla de Documento
+      </h3>
+    </div>
+    <div class="formulario" [formGroup]="solicitudDocumentoForm">
+      <div class="formulario__campos">
+        <input
+          placeholder="Ingresa el Nombre del Documento"
+          formControlName="nombreDocumento"
+          type="text"
+        />
+      </div>
+      <div class="formulario__campos">
+        <textarea
+          placeholder="Incluye las especificaciones detalladas que el empleado debe seguir al momento de cargar el documento."
+          formControlName="especificaciones"
+          rows="6"
+        ></textarea>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="boton">
+        <button
+          [disabled]="!solicitudDocumentoForm.dirty"
+          [ngClass]="{ desactivado: !solicitudDocumentoForm.dirty }"
+          nz-button
+          (click)="
+            actualizarDocumentoSolicitado.emit(solicitudDocumentoForm.value)
+          "
+        >
+          <span nz-icon nzType="plus" nzTheme="outline"></span>
+          Actualizar Documento
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
